@@ -1,5 +1,19 @@
 # compilation-he-arc-class
-A programming language to make quick css3 animations without touching css
+A programming language to make quick css3 animations without touching css.
+
+
+# Goal
+From a html file, and our langage file, create a css file based on the code.
+
+For instance, if I want to move the div when I'm hove with the mouse
+
+
+```
+
+python3 csscompile.py input.html ourcode.mylang
+
+
+```
 
 
 
