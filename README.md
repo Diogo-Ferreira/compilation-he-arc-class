@@ -21,6 +21,12 @@ For instance, if I want to move the div when I'm hove with the mouse
 
 }
 
+===============================================
+input.html
+
+...
+<button id="mybutton">My Button</button>
+...
 
 python3 csscompile.py input.html ourcode.mylang
 ```
