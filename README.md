@@ -9,6 +9,18 @@ For instance, if I want to move the div when I'm hove with the mouse
 
 
 ```
+@div(id="mybutton){
+  @animation(name="myanim"){
+    type="translate";
+    to="left";
+    distance="50px";  
+  }
+  @if hover{
+    start 'myanim'
+  }
+
+}
+
 
 python3 csscompile.py input.html ourcode.mylang
 
