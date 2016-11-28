@@ -23,8 +23,6 @@ For instance, if I want to move the div when I'm hove with the mouse
 
 
 python3 csscompile.py input.html ourcode.mylang
-
-
 ```
 
 
