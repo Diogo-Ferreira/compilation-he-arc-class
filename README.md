@@ -32,7 +32,7 @@ python3 csscompile.py input.html ourcode.mylang
 ```
 
 
-
+Or if you want to anime multiple buttons when the mouse is over and also when the button is clicked.
 
 ```
 FROM "body";
