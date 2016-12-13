@@ -1,0 +1,23 @@
+animation(){
+  @animation-duration:5s;
+	@animation:tata;
+
+	keyframes(){
+		count: 0;
+		value: 0;
+		for 0 .. 100 by 15 {
+			count: count + 1;
+
+			if count % 2 is 0{
+				value: 1;
+			}else{
+				value: -1;
+			}
+
+			frame(){
+				@transform:translateX($value);
+				@background-color:red
+			}
+		}
+	}
+}
