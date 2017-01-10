@@ -1,3 +1,4 @@
 for 0 to 10 by 1 {
-    log 1
+    pute: ix + 2;
+    log pute
 }

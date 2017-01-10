@@ -13,52 +13,53 @@ Grammar
 Rule 0     S' -> programme
 Rule 1     programme -> statement
 Rule 2     programme -> statement ; programme
-Rule 3     statement -> structure
-Rule 4     statement -> LOG expression
-Rule 5     structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
-Rule 6     css -> @ STRING
-Rule 7     expression -> expression ADD_OP expression
-Rule 8     expression -> expression MUL_OP expression
-Rule 9     expression -> NUMBER
-Rule 10    expression -> IDENTIFIER
-Rule 11    expression -> ( expression )
-Rule 12    expression -> IDENTIFIER ( ) { programme }
-Rule 13    expression -> ADD_OP expression
-Rule 14    assignation -> IDENTIFIER : expression
+Rule 3     statement -> assignation
+Rule 4     statement -> structure
+Rule 5     statement -> LOG expression
+Rule 6     structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
+Rule 7     css -> @ STRING
+Rule 8     expression -> expression ADD_OP expression
+Rule 9     expression -> expression MUL_OP expression
+Rule 10    expression -> NUMBER
+Rule 11    expression -> IDENTIFIER
+Rule 12    expression -> ( expression )
+Rule 13    expression -> IDENTIFIER ( ) { programme }
+Rule 14    expression -> ADD_OP expression
+Rule 15    assignation -> IDENTIFIER : expression
 
 Terminals, with rules where they appear
 
-(                    : 11 12
-)                    : 11 12
-:                    : 14
+(                    : 12 13
+)                    : 12 13
+:                    : 15
 ;                    : 2
-@                    : 6
-ADD_OP               : 7 13
-BY                   : 5
+@                    : 7
+ADD_OP               : 8 14
+BY                   : 6
 ELSE                 : 
-FOR                  : 5
+FOR                  : 6
 FUNCTION             : 
-IDENTIFIER           : 10 12 14
+IDENTIFIER           : 11 13 15
 IF                   : 
 IS                   : 
-LOG                  : 4
+LOG                  : 5
 MOD                  : 
-MUL_OP               : 8
-NUMBER               : 5 5 5 9
-STRING               : 6
-TO                   : 5
+MUL_OP               : 9
+NUMBER               : 6 6 6 10
+STRING               : 7
+TO                   : 6
 error                : 
-{                    : 5 12
-}                    : 5 12
+{                    : 6 13
+}                    : 6 13
 
 Nonterminals, with rules where they appear
 
-assignation          : 
+assignation          : 3
 css                  : 
-expression           : 4 7 7 8 8 11 13 14
-programme            : 2 5 12 0
+expression           : 5 8 8 9 9 12 14 15
+programme            : 2 6 13 0
 statement            : 1 2
-structure            : 3
+structure            : 4
 
 Parsing method: LALR
 
@@ -67,59 +68,61 @@ state 0
     (0) S' -> . programme
     (1) programme -> . statement
     (2) programme -> . statement ; programme
-    (3) statement -> . structure
-    (4) statement -> . LOG expression
-    (5) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . LOG expression
+    (15) assignation -> . IDENTIFIER : expression
+    (6) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
 
-    LOG             shift and go to state 1
-    FOR             shift and go to state 2
+    LOG             shift and go to state 2
+    IDENTIFIER      shift and go to state 1
+    FOR             shift and go to state 3
 
-    structure                      shift and go to state 4
-    statement                      shift and go to state 3
+    structure                      shift and go to state 6
+    assignation                    shift and go to state 7
+    statement                      shift and go to state 4
     programme                      shift and go to state 5
 
 state 1
 
-    (4) statement -> LOG . expression
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . IDENTIFIER ( ) { programme }
-    (13) expression -> . ADD_OP expression
+    (15) assignation -> IDENTIFIER . : expression
 
-    NUMBER          shift and go to state 7
-    IDENTIFIER      shift and go to state 9
-    (               shift and go to state 6
-    ADD_OP          shift and go to state 8
+    :               shift and go to state 8
 
-    expression                     shift and go to state 10
 
 state 2
 
-    (5) structure -> FOR . NUMBER TO NUMBER BY NUMBER { programme }
+    (5) statement -> LOG . expression
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
 
-    NUMBER          shift and go to state 11
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
 
+    expression                     shift and go to state 13
 
 state 3
+
+    (6) structure -> FOR . NUMBER TO NUMBER BY NUMBER { programme }
+
+    NUMBER          shift and go to state 14
+
+
+state 4
 
     (1) programme -> statement .
     (2) programme -> statement . ; programme
 
     $end            reduce using rule 1 (programme -> statement .)
     }               reduce using rule 1 (programme -> statement .)
-    ;               shift and go to state 12
-
-
-state 4
-
-    (3) statement -> structure .
-
-    ;               reduce using rule 3 (statement -> structure .)
-    $end            reduce using rule 3 (statement -> structure .)
-    }               reduce using rule 3 (statement -> structure .)
+    ;               shift and go to state 15
 
 
 state 5
@@ -130,181 +133,234 @@ state 5
 
 state 6
 
-    (11) expression -> ( . expression )
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . IDENTIFIER ( ) { programme }
-    (13) expression -> . ADD_OP expression
+    (4) statement -> structure .
 
-    NUMBER          shift and go to state 7
-    IDENTIFIER      shift and go to state 9
-    (               shift and go to state 6
-    ADD_OP          shift and go to state 8
+    ;               reduce using rule 4 (statement -> structure .)
+    }               reduce using rule 4 (statement -> structure .)
+    $end            reduce using rule 4 (statement -> structure .)
 
-    expression                     shift and go to state 13
 
 state 7
 
-    (9) expression -> NUMBER .
+    (3) statement -> assignation .
 
-    ADD_OP          reduce using rule 9 (expression -> NUMBER .)
-    MUL_OP          reduce using rule 9 (expression -> NUMBER .)
-    ;               reduce using rule 9 (expression -> NUMBER .)
-    $end            reduce using rule 9 (expression -> NUMBER .)
-    }               reduce using rule 9 (expression -> NUMBER .)
-    )               reduce using rule 9 (expression -> NUMBER .)
+    ;               reduce using rule 3 (statement -> assignation .)
+    }               reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
 
 
 state 8
 
-    (13) expression -> ADD_OP . expression
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . IDENTIFIER ( ) { programme }
-    (13) expression -> . ADD_OP expression
+    (15) assignation -> IDENTIFIER : . expression
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
 
-    NUMBER          shift and go to state 7
-    IDENTIFIER      shift and go to state 9
-    (               shift and go to state 6
-    ADD_OP          shift and go to state 8
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 16
 
 state 9
 
-    (10) expression -> IDENTIFIER .
-    (12) expression -> IDENTIFIER . ( ) { programme }
+    (12) expression -> ( . expression )
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
 
-    ADD_OP          reduce using rule 10 (expression -> IDENTIFIER .)
-    MUL_OP          reduce using rule 10 (expression -> IDENTIFIER .)
-    ;               reduce using rule 10 (expression -> IDENTIFIER .)
-    $end            reduce using rule 10 (expression -> IDENTIFIER .)
-    }               reduce using rule 10 (expression -> IDENTIFIER .)
-    )               reduce using rule 10 (expression -> IDENTIFIER .)
-    (               shift and go to state 15
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
 
+    expression                     shift and go to state 17
 
 state 10
 
-    (4) statement -> LOG expression .
-    (7) expression -> expression . ADD_OP expression
-    (8) expression -> expression . MUL_OP expression
+    (10) expression -> NUMBER .
 
-    ;               reduce using rule 4 (statement -> LOG expression .)
-    $end            reduce using rule 4 (statement -> LOG expression .)
-    }               reduce using rule 4 (statement -> LOG expression .)
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 16
+    ADD_OP          reduce using rule 10 (expression -> NUMBER .)
+    MUL_OP          reduce using rule 10 (expression -> NUMBER .)
+    ;               reduce using rule 10 (expression -> NUMBER .)
+    $end            reduce using rule 10 (expression -> NUMBER .)
+    }               reduce using rule 10 (expression -> NUMBER .)
+    )               reduce using rule 10 (expression -> NUMBER .)
 
 
 state 11
 
-    (5) structure -> FOR NUMBER . TO NUMBER BY NUMBER { programme }
+    (14) expression -> ADD_OP . expression
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
 
-    TO              shift and go to state 18
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
 
+    expression                     shift and go to state 18
 
 state 12
 
-    (2) programme -> statement ; . programme
-    (1) programme -> . statement
-    (2) programme -> . statement ; programme
-    (3) statement -> . structure
-    (4) statement -> . LOG expression
-    (5) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) expression -> IDENTIFIER .
+    (13) expression -> IDENTIFIER . ( ) { programme }
 
-    LOG             shift and go to state 1
-    FOR             shift and go to state 2
+    ADD_OP          reduce using rule 11 (expression -> IDENTIFIER .)
+    MUL_OP          reduce using rule 11 (expression -> IDENTIFIER .)
+    ;               reduce using rule 11 (expression -> IDENTIFIER .)
+    $end            reduce using rule 11 (expression -> IDENTIFIER .)
+    }               reduce using rule 11 (expression -> IDENTIFIER .)
+    )               reduce using rule 11 (expression -> IDENTIFIER .)
+    (               shift and go to state 19
 
-    structure                      shift and go to state 4
-    statement                      shift and go to state 3
-    programme                      shift and go to state 19
 
 state 13
 
-    (11) expression -> ( expression . )
-    (7) expression -> expression . ADD_OP expression
-    (8) expression -> expression . MUL_OP expression
+    (5) statement -> LOG expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    )               shift and go to state 20
-    ADD_OP          shift and go to state 17
-    MUL_OP          shift and go to state 16
+    ;               reduce using rule 5 (statement -> LOG expression .)
+    }               reduce using rule 5 (statement -> LOG expression .)
+    $end            reduce using rule 5 (statement -> LOG expression .)
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 20
 
 
 state 14
 
-    (13) expression -> ADD_OP expression .
-    (7) expression -> expression . ADD_OP expression
-    (8) expression -> expression . MUL_OP expression
+    (6) structure -> FOR NUMBER . TO NUMBER BY NUMBER { programme }
 
-    ADD_OP          reduce using rule 13 (expression -> ADD_OP expression .)
-    MUL_OP          reduce using rule 13 (expression -> ADD_OP expression .)
-    ;               reduce using rule 13 (expression -> ADD_OP expression .)
-    $end            reduce using rule 13 (expression -> ADD_OP expression .)
-    }               reduce using rule 13 (expression -> ADD_OP expression .)
-    )               reduce using rule 13 (expression -> ADD_OP expression .)
-
-  ! ADD_OP          [ shift and go to state 17 ]
-  ! MUL_OP          [ shift and go to state 16 ]
+    TO              shift and go to state 22
 
 
 state 15
 
-    (12) expression -> IDENTIFIER ( . ) { programme }
+    (2) programme -> statement ; . programme
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . LOG expression
+    (15) assignation -> . IDENTIFIER : expression
+    (6) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
 
-    )               shift and go to state 21
+    LOG             shift and go to state 2
+    IDENTIFIER      shift and go to state 1
+    FOR             shift and go to state 3
 
+    structure                      shift and go to state 6
+    assignation                    shift and go to state 7
+    statement                      shift and go to state 4
+    programme                      shift and go to state 23
 
 state 16
 
-    (8) expression -> expression MUL_OP . expression
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . IDENTIFIER ( ) { programme }
-    (13) expression -> . ADD_OP expression
+    (15) assignation -> IDENTIFIER : expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    NUMBER          shift and go to state 7
-    IDENTIFIER      shift and go to state 9
-    (               shift and go to state 6
-    ADD_OP          shift and go to state 8
+    ;               reduce using rule 15 (assignation -> IDENTIFIER : expression .)
+    }               reduce using rule 15 (assignation -> IDENTIFIER : expression .)
+    $end            reduce using rule 15 (assignation -> IDENTIFIER : expression .)
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 20
 
-    expression                     shift and go to state 22
 
 state 17
 
-    (7) expression -> expression ADD_OP . expression
-    (7) expression -> . expression ADD_OP expression
-    (8) expression -> . expression MUL_OP expression
-    (9) expression -> . NUMBER
-    (10) expression -> . IDENTIFIER
-    (11) expression -> . ( expression )
-    (12) expression -> . IDENTIFIER ( ) { programme }
-    (13) expression -> . ADD_OP expression
+    (12) expression -> ( expression . )
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    NUMBER          shift and go to state 7
-    IDENTIFIER      shift and go to state 9
-    (               shift and go to state 6
-    ADD_OP          shift and go to state 8
+    )               shift and go to state 24
+    ADD_OP          shift and go to state 21
+    MUL_OP          shift and go to state 20
 
-    expression                     shift and go to state 23
 
 state 18
 
-    (5) structure -> FOR NUMBER TO . NUMBER BY NUMBER { programme }
+    (14) expression -> ADD_OP expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    NUMBER          shift and go to state 24
+    ADD_OP          reduce using rule 14 (expression -> ADD_OP expression .)
+    MUL_OP          reduce using rule 14 (expression -> ADD_OP expression .)
+    ;               reduce using rule 14 (expression -> ADD_OP expression .)
+    $end            reduce using rule 14 (expression -> ADD_OP expression .)
+    }               reduce using rule 14 (expression -> ADD_OP expression .)
+    )               reduce using rule 14 (expression -> ADD_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 21 ]
+  ! MUL_OP          [ shift and go to state 20 ]
 
 
 state 19
+
+    (13) expression -> IDENTIFIER ( . ) { programme }
+
+    )               shift and go to state 25
+
+
+state 20
+
+    (9) expression -> expression MUL_OP . expression
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
+
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
+
+    expression                     shift and go to state 26
+
+state 21
+
+    (8) expression -> expression ADD_OP . expression
+    (8) expression -> . expression ADD_OP expression
+    (9) expression -> . expression MUL_OP expression
+    (10) expression -> . NUMBER
+    (11) expression -> . IDENTIFIER
+    (12) expression -> . ( expression )
+    (13) expression -> . IDENTIFIER ( ) { programme }
+    (14) expression -> . ADD_OP expression
+
+    NUMBER          shift and go to state 10
+    IDENTIFIER      shift and go to state 12
+    (               shift and go to state 9
+    ADD_OP          shift and go to state 11
+
+    expression                     shift and go to state 27
+
+state 22
+
+    (6) structure -> FOR NUMBER TO . NUMBER BY NUMBER { programme }
+
+    NUMBER          shift and go to state 28
+
+
+state 23
 
     (2) programme -> statement ; programme .
 
@@ -312,143 +368,151 @@ state 19
     }               reduce using rule 2 (programme -> statement ; programme .)
 
 
-state 20
-
-    (11) expression -> ( expression ) .
-
-    ADD_OP          reduce using rule 11 (expression -> ( expression ) .)
-    MUL_OP          reduce using rule 11 (expression -> ( expression ) .)
-    ;               reduce using rule 11 (expression -> ( expression ) .)
-    $end            reduce using rule 11 (expression -> ( expression ) .)
-    }               reduce using rule 11 (expression -> ( expression ) .)
-    )               reduce using rule 11 (expression -> ( expression ) .)
-
-
-state 21
-
-    (12) expression -> IDENTIFIER ( ) . { programme }
-
-    {               shift and go to state 25
-
-
-state 22
-
-    (8) expression -> expression MUL_OP expression .
-    (7) expression -> expression . ADD_OP expression
-    (8) expression -> expression . MUL_OP expression
-
-    ADD_OP          reduce using rule 8 (expression -> expression MUL_OP expression .)
-    MUL_OP          reduce using rule 8 (expression -> expression MUL_OP expression .)
-    ;               reduce using rule 8 (expression -> expression MUL_OP expression .)
-    $end            reduce using rule 8 (expression -> expression MUL_OP expression .)
-    }               reduce using rule 8 (expression -> expression MUL_OP expression .)
-    )               reduce using rule 8 (expression -> expression MUL_OP expression .)
-
-  ! ADD_OP          [ shift and go to state 17 ]
-  ! MUL_OP          [ shift and go to state 16 ]
-
-
-state 23
-
-    (7) expression -> expression ADD_OP expression .
-    (7) expression -> expression . ADD_OP expression
-    (8) expression -> expression . MUL_OP expression
-
-    ADD_OP          reduce using rule 7 (expression -> expression ADD_OP expression .)
-    ;               reduce using rule 7 (expression -> expression ADD_OP expression .)
-    $end            reduce using rule 7 (expression -> expression ADD_OP expression .)
-    }               reduce using rule 7 (expression -> expression ADD_OP expression .)
-    )               reduce using rule 7 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 16
-
-  ! MUL_OP          [ reduce using rule 7 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 17 ]
-
-
 state 24
 
-    (5) structure -> FOR NUMBER TO NUMBER . BY NUMBER { programme }
+    (12) expression -> ( expression ) .
 
-    BY              shift and go to state 26
+    ADD_OP          reduce using rule 12 (expression -> ( expression ) .)
+    MUL_OP          reduce using rule 12 (expression -> ( expression ) .)
+    ;               reduce using rule 12 (expression -> ( expression ) .)
+    $end            reduce using rule 12 (expression -> ( expression ) .)
+    }               reduce using rule 12 (expression -> ( expression ) .)
+    )               reduce using rule 12 (expression -> ( expression ) .)
 
 
 state 25
 
-    (12) expression -> IDENTIFIER ( ) { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement ; programme
-    (3) statement -> . structure
-    (4) statement -> . LOG expression
-    (5) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (13) expression -> IDENTIFIER ( ) . { programme }
 
-    LOG             shift and go to state 1
-    FOR             shift and go to state 2
+    {               shift and go to state 29
 
-    structure                      shift and go to state 4
-    statement                      shift and go to state 3
-    programme                      shift and go to state 27
 
 state 26
 
-    (5) structure -> FOR NUMBER TO NUMBER BY . NUMBER { programme }
+    (9) expression -> expression MUL_OP expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    NUMBER          shift and go to state 28
+    ADD_OP          reduce using rule 9 (expression -> expression MUL_OP expression .)
+    MUL_OP          reduce using rule 9 (expression -> expression MUL_OP expression .)
+    ;               reduce using rule 9 (expression -> expression MUL_OP expression .)
+    $end            reduce using rule 9 (expression -> expression MUL_OP expression .)
+    }               reduce using rule 9 (expression -> expression MUL_OP expression .)
+    )               reduce using rule 9 (expression -> expression MUL_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 21 ]
+  ! MUL_OP          [ shift and go to state 20 ]
 
 
 state 27
 
-    (12) expression -> IDENTIFIER ( ) { programme . }
+    (8) expression -> expression ADD_OP expression .
+    (8) expression -> expression . ADD_OP expression
+    (9) expression -> expression . MUL_OP expression
 
-    }               shift and go to state 29
+    ADD_OP          reduce using rule 8 (expression -> expression ADD_OP expression .)
+    ;               reduce using rule 8 (expression -> expression ADD_OP expression .)
+    $end            reduce using rule 8 (expression -> expression ADD_OP expression .)
+    }               reduce using rule 8 (expression -> expression ADD_OP expression .)
+    )               reduce using rule 8 (expression -> expression ADD_OP expression .)
+    MUL_OP          shift and go to state 20
+
+  ! MUL_OP          [ reduce using rule 8 (expression -> expression ADD_OP expression .) ]
+  ! ADD_OP          [ shift and go to state 21 ]
 
 
 state 28
 
-    (5) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
+    (6) structure -> FOR NUMBER TO NUMBER . BY NUMBER { programme }
 
-    {               shift and go to state 30
+    BY              shift and go to state 30
 
 
 state 29
 
-    (12) expression -> IDENTIFIER ( ) { programme } .
+    (13) expression -> IDENTIFIER ( ) { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . LOG expression
+    (15) assignation -> . IDENTIFIER : expression
+    (6) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
 
-    ADD_OP          reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
-    MUL_OP          reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
-    ;               reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
-    $end            reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
-    }               reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
-    )               reduce using rule 12 (expression -> IDENTIFIER ( ) { programme } .)
+    LOG             shift and go to state 2
+    IDENTIFIER      shift and go to state 1
+    FOR             shift and go to state 3
 
+    structure                      shift and go to state 6
+    assignation                    shift and go to state 7
+    statement                      shift and go to state 4
+    programme                      shift and go to state 31
 
 state 30
 
-    (5) structure -> FOR NUMBER TO NUMBER BY NUMBER { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement ; programme
-    (3) statement -> . structure
-    (4) statement -> . LOG expression
-    (5) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (6) structure -> FOR NUMBER TO NUMBER BY . NUMBER { programme }
 
-    LOG             shift and go to state 1
-    FOR             shift and go to state 2
+    NUMBER          shift and go to state 32
 
-    structure                      shift and go to state 4
-    statement                      shift and go to state 3
-    programme                      shift and go to state 31
 
 state 31
 
-    (5) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
+    (13) expression -> IDENTIFIER ( ) { programme . }
 
-    }               shift and go to state 32
+    }               shift and go to state 33
 
 
 state 32
 
-    (5) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
+    (6) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
 
-    ;               reduce using rule 5 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    }               reduce using rule 5 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    $end            reduce using rule 5 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    {               shift and go to state 34
+
+
+state 33
+
+    (13) expression -> IDENTIFIER ( ) { programme } .
+
+    ADD_OP          reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+    MUL_OP          reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+    ;               reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+    $end            reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+    }               reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+    )               reduce using rule 13 (expression -> IDENTIFIER ( ) { programme } .)
+
+
+state 34
+
+    (6) structure -> FOR NUMBER TO NUMBER BY NUMBER { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement ; programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . LOG expression
+    (15) assignation -> . IDENTIFIER : expression
+    (6) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+
+    LOG             shift and go to state 2
+    IDENTIFIER      shift and go to state 1
+    FOR             shift and go to state 3
+
+    structure                      shift and go to state 6
+    assignation                    shift and go to state 7
+    statement                      shift and go to state 4
+    programme                      shift and go to state 35
+
+state 35
+
+    (6) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
+
+    }               shift and go to state 36
+
+
+state 36
+
+    (6) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
+
+    ;               reduce using rule 6 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    }               reduce using rule 6 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    $end            reduce using rule 6 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
 

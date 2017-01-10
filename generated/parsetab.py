@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '266D5634A85AA0093BA43ADFE0B02F60'
+_lr_signature = '19156572672BFB7E55CC46585EF59D87'
     
-_lr_action_items = {'MUL_OP':([7,9,10,13,14,20,22,23,29,],[-9,-10,16,16,-13,-11,-8,16,-12,]),'LOG':([0,12,25,30,],[1,1,1,1,]),'FOR':([0,12,25,30,],[2,2,2,2,]),')':([7,9,13,14,15,20,22,23,29,],[-9,-10,20,-13,21,-11,-8,-7,-12,]),'(':([1,6,8,9,16,17,],[6,6,6,15,6,6,]),'NUMBER':([1,2,6,8,16,17,18,26,],[7,11,7,7,7,7,24,28,]),'BY':([24,],[26,]),'TO':([11,],[18,]),'ADD_OP':([1,6,7,8,9,10,13,14,16,17,20,22,23,29,],[8,8,-9,8,-10,17,17,-13,8,8,-11,-8,-7,-12,]),';':([3,4,7,9,10,14,20,22,23,29,32,],[12,-3,-9,-10,-4,-13,-11,-8,-7,-12,-5,]),'IDENTIFIER':([1,6,8,16,17,],[9,9,9,9,9,]),'}':([3,4,7,9,10,14,19,20,22,23,27,29,31,32,],[-1,-3,-9,-10,-4,-13,-2,-11,-8,-7,29,-12,32,-5,]),'{':([21,28,],[25,30,]),'$end':([3,4,5,7,9,10,14,19,20,22,23,29,32,],[-1,-3,0,-9,-10,-4,-13,-2,-11,-8,-7,-12,-5,]),}
+_lr_action_items = {'MUL_OP':([10,12,13,16,17,18,24,26,27,33,],[-10,-11,20,20,20,-14,-12,-9,20,-13,]),'IDENTIFIER':([0,2,8,9,11,15,20,21,29,34,],[1,12,12,12,12,1,12,12,1,1,]),'LOG':([0,15,29,34,],[2,2,2,2,]),'FOR':([0,15,29,34,],[3,3,3,3,]),')':([10,12,17,18,19,24,26,27,33,],[-10,-11,24,-14,25,-12,-9,-8,-13,]),'(':([2,8,9,11,12,20,21,],[9,9,9,9,19,9,9,]),'NUMBER':([2,3,8,9,11,20,21,22,30,],[10,14,10,10,10,10,10,28,32,]),'BY':([28,],[30,]),'TO':([14,],[22,]),'ADD_OP':([2,8,9,10,11,12,13,16,17,18,20,21,24,26,27,33,],[11,11,11,-10,11,-11,21,21,21,-14,11,11,-12,-9,-8,-13,]),';':([4,6,7,10,12,13,16,18,24,26,27,33,36,],[15,-4,-3,-10,-11,-5,-15,-14,-12,-9,-8,-13,-6,]),':':([1,],[8,]),'}':([4,6,7,10,12,13,16,18,23,24,26,27,31,33,35,36,],[-1,-4,-3,-10,-11,-5,-15,-14,-2,-12,-9,-8,33,-13,36,-6,]),'{':([25,32,],[29,34,]),'$end':([4,5,6,7,10,12,13,16,18,23,24,26,27,33,36,],[-1,0,-4,-3,-10,-11,-5,-15,-14,-2,-12,-9,-8,-13,-6,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([1,6,8,16,17,],[10,13,14,22,23,]),'structure':([0,12,25,30,],[4,4,4,4,]),'statement':([0,12,25,30,],[3,3,3,3,]),'programme':([0,12,25,30,],[5,19,27,31,]),}
+_lr_goto_items = {'structure':([0,15,29,34,],[6,6,6,6,]),'expression':([2,8,9,11,20,21,],[13,16,17,18,26,27,]),'assignation':([0,15,29,34,],[7,7,7,7,]),'statement':([0,15,29,34,],[4,4,4,4,]),'programme':([0,15,29,34,],[5,23,31,35,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,16 +28,17 @@ _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
   ('programme -> statement','programme',1,'p_programme_statement','parser.py',10),
   ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser.py',15),
-  ('statement -> structure','statement',1,'p_statement','parser.py',20),
-  ('statement -> LOG expression','statement',2,'p_statement_print','parser.py',25),
-  ('structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }','structure',9,'p_structure','parser.py',30),
-  ('css -> @ STRING','css',2,'p_css','parser.py',40),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser.py',45),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser.py',46),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser.py',51),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser.py',52),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser.py',57),
-  ('expression -> IDENTIFIER ( ) { programme }','expression',6,'p_function','parser.py',62),
+  ('statement -> assignation','statement',1,'p_statement','parser.py',20),
+  ('statement -> structure','statement',1,'p_statement','parser.py',21),
+  ('statement -> LOG expression','statement',2,'p_statement_print','parser.py',26),
+  ('structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }','structure',9,'p_structure','parser.py',31),
+  ('css -> @ STRING','css',2,'p_css','parser.py',41),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser.py',46),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser.py',47),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser.py',52),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser.py',53),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser.py',58),
+  ('expression -> IDENTIFIER ( ) { programme }','expression',6,'p_function','parser.py',63),
   ('expression -> ADD_OP expression','expression',2,'p_minus','parser.py',68),
   ('assignation -> IDENTIFIER : expression','assignation',3,'p_assign','parser.py',73),
 ]

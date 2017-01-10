@@ -17,7 +17,8 @@ def p_programme_recursive(p):
 
 
 def p_statement(p):
-    ''' statement : structure '''
+    ''' statement : assignation
+        | structure'''
     p[0] = p[1]
 
 
@@ -60,7 +61,6 @@ def p_expression_paren(p):
 
 def p_function(p):
     '''expression : IDENTIFIER '(' ')' '{' programme '}' '''
-    print(p[5])
     p[0] = AST.FuncNode([p[1], p[5]])
 
 
