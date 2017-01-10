@@ -1,0 +1,32 @@
+Syntax error in line 1
+Syntax error in line 1
+Syntax error in line 1
+Syntax error in line 2
+Syntax error in line 3
+Syntax error in line 5
+Syntax error in line 5
+Syntax error in line 5
+Syntax error in line 5
+Syntax error in line 6
+Syntax error in line 11
+Syntax error in line 11
+Syntax error in line 11
+Syntax error in line 11
+Syntax error in line 11
+Syntax error in line 11
+Syntax error in line 12
+Syntax error in line 13
+Syntax error in line 13
+Syntax error in line 13
+Syntax error in line 15
+Syntax error in line 17
+Syntax error in line 17
+Syntax error in line 17
+Syntax error in line 18
+Syntax error in line 19
+Syntax error in line 20
+Syntax error in line 21
+Syntax error in line 22
+Syntax error in line 23
+Sytax error: unexpected end of file!
+Parsing returned no result!
