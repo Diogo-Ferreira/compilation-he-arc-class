@@ -47,6 +47,15 @@ def execute(self):
 def execute(self):
     print(self.children[0].execute())
 
+@addToClass(AST.ConditionNode)
+def execute(self):
+    if(self.children[0].execute()):
+        self.children[1].execute()
+
+
+@addToClass(AST.IsEqualNode)
+def execute(self):
+    return self.children[0].execute() == self.children[1].execute()
 
 @addToClass(AST.WhileNode)
 def execute(self):

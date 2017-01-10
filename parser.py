@@ -18,7 +18,8 @@ def p_programme_recursive(p):
 
 def p_statement(p):
     ''' statement : assignation
-        | structure'''
+        | structure
+        | condition '''
     p[0] = p[1]
 
 
@@ -26,6 +27,10 @@ def p_statement_print(p):
     ''' statement : LOG expression '''
     p[0] = AST.PrintNode(p[2])
 
+
+def p_condition(p):
+    ''' condition : IF expression '{' programme '}' '''
+    p[0] = AST.ConditionNode([p[2],p[4]])
 
 def p_structure(p):
     ''' structure : FOR NUMBER TO NUMBER BY NUMBER '{' programme '}' '''
@@ -47,6 +52,9 @@ def p_expression_op(p):
             | expression MUL_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
+def p_expression_logic(p):
+    ''' expression : expression IS expression '''
+    p[0] = AST.IsEqualNode([p[1], p[3]])
 
 def p_expression_num_or_var(p):
     '''expression : NUMBER

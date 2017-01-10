@@ -106,7 +106,7 @@ class OpNode(Node):
 
 
 class AssignNode(Node):
-    type = '='
+    type = ':'
 
 
 class PrintNode(Node):
@@ -125,6 +125,14 @@ class CssNode(Node):
     type = 'CSS'
 
 
+class ConditionNode(Node):
+    type = 'condition'
+
+
+class IsEqualNode(Node):
+    type = 'Is'
+
+
 class EntryNode(Node):
     type = 'ENTRY'
 
@@ -133,7 +141,6 @@ class EntryNode(Node):
 
 
 def addToClass(cls):
-
     def decorator(func):
         setattr(cls, func.__name__, func)
         return func
