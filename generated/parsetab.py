@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'E0E5319E8C8B7D77028C452F176CCE8A'
+_lr_signature = 'C44ED416679EE402DF1C6176991C7CBF'
     
-_lr_action_items = {'MUL_OP':([12,14,15,16,20,21,28,30,32,33,34,42,],[-13,-14,24,24,24,-17,24,-15,24,-11,24,-16,]),':':([7,],[18,]),'LOG':([0,17,26,37,41,],[3,3,3,3,3,]),'FOR':([0,17,26,37,41,],[2,2,2,2,2,]),')':([12,14,20,21,22,30,32,33,34,42,],[-13,-14,30,-17,31,-15,-12,-11,-10,-16,]),'(':([3,4,11,13,14,18,23,24,25,],[11,11,11,11,22,11,11,11,11,]),'IS':([12,14,15,16,20,21,28,30,32,33,34,42,],[-13,-14,23,23,23,-17,23,-15,23,-11,-10,-16,]),'NUMBER':([2,3,4,11,13,18,19,23,24,25,36,],[10,12,12,12,12,12,29,12,12,12,39,]),'BY':([29,],[36,]),'TO':([10,],[19,]),'ADD_OP':([3,4,11,12,13,14,15,16,18,20,21,23,24,25,28,30,32,33,34,42,],[13,13,13,-13,13,-14,25,25,13,25,-17,13,13,13,25,-15,25,-11,-10,-16,]),'{':([12,14,16,21,30,31,32,33,34,39,42,],[-13,-14,26,-17,-15,37,-12,-11,-10,41,-16,]),';':([1,5,6,8,12,14,15,21,28,30,32,33,34,38,42,44,],[-3,-5,17,-4,-13,-14,-6,-17,-18,-15,-12,-11,-10,-7,-16,-8,]),'IDENTIFIER':([0,3,4,11,13,17,18,23,24,25,26,37,41,],[7,14,14,14,14,7,14,14,14,14,7,7,7,]),'}':([1,5,6,8,12,14,15,21,27,28,30,32,33,34,35,38,40,42,43,44,],[-3,-5,-1,-4,-13,-14,-6,-17,-2,-18,-15,-12,-11,-10,38,-7,42,-16,44,-8,]),'$end':([1,5,6,8,9,12,14,15,21,27,28,30,32,33,34,38,42,44,],[-3,-5,-1,-4,0,-13,-14,-6,-17,-2,-18,-15,-12,-11,-10,-7,-16,-8,]),'IF':([0,17,26,37,41,],[4,4,4,4,4,]),}
+_lr_action_items = {'@':([0,3,7,8,9,10,12,14,15,18,20,21,22,29,33,34,35,37,38,39,40,43,45,47,],[1,-3,-5,-7,-6,1,-4,-11,1,-18,-19,-8,-20,-22,1,-23,-12,-21,-17,-16,-15,-9,1,-10,]),'MUL_OP':([18,20,21,22,23,28,29,34,37,38,39,40,],[-18,-19,31,-20,31,31,-22,31,-21,31,-16,31,]),':':([11,],[25,]),'LOG':([0,3,7,8,9,10,12,14,15,18,20,21,22,29,33,34,35,37,38,39,40,43,45,47,],[5,-3,-5,-7,-6,5,-4,-11,5,-18,-19,-8,-20,-22,5,-23,-12,-21,-17,-16,-15,-9,5,-10,]),'FOR':([0,3,7,8,9,10,12,14,15,18,20,21,22,29,33,34,35,37,38,39,40,43,45,47,],[4,-3,-5,-7,-6,4,-4,-11,4,-18,-19,-8,-20,-22,4,-23,-12,-21,-17,-16,-15,-9,4,-10,]),')':([18,20,22,28,29,37,38,39,40,],[-18,-19,-20,37,-22,-21,-17,-16,-15,]),'(':([5,6,17,19,25,30,31,32,],[17,17,17,17,17,17,17,17,]),'IS':([18,20,21,22,23,28,29,34,37,38,39,40,],[-18,-19,30,-20,30,30,-22,30,-21,30,-16,-15,]),'$end':([3,7,8,9,10,12,13,14,18,20,21,22,24,29,34,35,37,38,39,40,43,47,],[-3,-5,-7,-6,-1,-4,0,-11,-18,-19,-8,-20,-2,-22,-23,-12,-21,-17,-16,-15,-9,-10,]),'NUMBER':([4,5,6,17,19,25,27,30,31,32,42,],[16,18,18,18,18,18,36,18,18,18,44,]),'KEYFRAMES':([0,3,7,8,9,10,12,14,15,18,20,21,22,29,33,34,35,37,38,39,40,43,45,47,],[2,-3,-5,-7,-6,2,-4,-11,2,-18,-19,-8,-20,-22,2,-23,-12,-21,-17,-16,-15,-9,2,-10,]),'BY':([36,],[42,]),'TO':([16,],[27,]),'ADD_OP':([5,6,17,18,19,20,21,22,23,25,28,29,30,31,32,34,37,38,39,40,],[19,19,19,-18,19,-19,32,-20,32,19,32,-22,19,19,19,32,-21,32,-16,-15,]),'STRING':([1,5,6,17,19,25,30,31,32,],[14,22,22,22,22,22,22,22,22,]),'IDENTIFIER':([0,3,5,6,7,8,9,10,12,14,15,17,18,19,20,21,22,25,29,30,31,32,33,34,35,37,38,39,40,43,45,47,],[11,-3,20,20,-5,-7,-6,11,-4,-11,11,20,-18,20,-19,-8,-20,20,-22,20,20,20,11,-23,-12,-21,-17,-16,-15,-9,11,-10,]),'}':([3,7,8,9,10,12,14,18,20,21,22,24,26,29,34,35,37,38,39,40,41,43,46,47,],[-3,-5,-7,-6,-1,-4,-11,-18,-19,-8,-20,-2,35,-22,-23,-12,-21,-17,-16,-15,43,-9,47,-10,]),'{':([2,18,20,22,23,29,37,38,39,40,44,],[15,-18,-19,-20,33,-22,-21,-17,-16,-15,45,]),'IF':([0,3,7,8,9,10,12,14,15,18,20,21,22,29,33,34,35,37,38,39,40,43,45,47,],[6,-3,-5,-7,-6,6,-4,-11,6,-18,-19,-8,-20,-22,6,-23,-12,-21,-17,-16,-15,-9,6,-10,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'assignation':([0,17,26,37,41,],[1,1,1,1,1,]),'structure':([0,17,26,37,41,],[8,8,8,8,8,]),'statement':([0,17,26,37,41,],[6,6,6,6,6,]),'expression':([3,4,11,13,18,23,24,25,],[15,16,20,21,28,32,33,34,]),'condition':([0,17,26,37,41,],[5,5,5,5,5,]),'programme':([0,17,26,37,41,],[9,27,35,40,43,]),}
+_lr_goto_items = {'assignation':([0,10,15,33,45,],[3,3,3,3,3,]),'keyframes':([0,10,15,33,45,],[8,8,8,8,8,]),'condition':([0,10,15,33,45,],[7,7,7,7,7,]),'statement':([0,10,15,33,45,],[10,10,10,10,10,]),'css':([0,10,15,33,45,],[9,9,9,9,9,]),'expression':([5,6,17,19,25,30,31,32,],[21,23,28,29,34,38,39,40,]),'structure':([0,10,15,33,45,],[12,12,12,12,12,]),'programme':([0,10,15,33,45,],[13,24,26,41,46,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,22 +26,27 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
-  ('programme -> statement','programme',1,'p_programme_statement','parser.py',10),
-  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parser.py',15),
-  ('statement -> assignation','statement',1,'p_statement','parser.py',20),
-  ('statement -> structure','statement',1,'p_statement','parser.py',21),
-  ('statement -> condition','statement',1,'p_statement','parser.py',22),
-  ('statement -> LOG expression','statement',2,'p_statement_print','parser.py',27),
-  ('condition -> IF expression { programme }','condition',5,'p_condition','parser.py',32),
-  ('structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }','structure',9,'p_structure','parser.py',36),
-  ('css -> @ STRING','css',2,'p_css','parser.py',46),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser.py',51),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser.py',52),
-  ('expression -> expression IS expression','expression',3,'p_expression_logic','parser.py',56),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser.py',60),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser.py',61),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parser.py',66),
-  ('expression -> IDENTIFIER ( ) { programme }','expression',6,'p_function','parser.py',71),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parser.py',76),
-  ('assignation -> IDENTIFIER : expression','assignation',3,'p_assign','parser.py',81),
+  ('programme -> statement','programme',1,'p_programme_statement','parser.py',12),
+  ('programme -> statement programme','programme',2,'p_programme_recursive','parser.py',17),
+  ('statement -> assignation','statement',1,'p_statement','parser.py',22),
+  ('statement -> structure','statement',1,'p_statement','parser.py',23),
+  ('statement -> condition','statement',1,'p_statement','parser.py',24),
+  ('statement -> css','statement',1,'p_statement','parser.py',25),
+  ('statement -> keyframes','statement',1,'p_statement','parser.py',26),
+  ('statement -> LOG expression','statement',2,'p_statement_print','parser.py',31),
+  ('condition -> IF expression { programme }','condition',5,'p_condition','parser.py',36),
+  ('structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }','structure',9,'p_structure','parser.py',41),
+  ('css -> @ STRING','css',2,'p_css','parser.py',51),
+  ('keyframes -> KEYFRAMES { programme }','keyframes',4,'p_keyframes','parser.py',56),
+  ('animation -> ANIMATION ( assignation ) { programme }','animation',7,'p_animation','parser.py',61),
+  ('frame -> FRAME ( assignation ) { programme }','frame',7,'p_frame','parser.py',66),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser.py',71),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser.py',72),
+  ('expression -> expression IS expression','expression',3,'p_expression_logic','parser.py',77),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parser.py',82),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parser.py',83),
+  ('expression -> STRING','expression',1,'p_expression_num_or_var','parser.py',84),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parser.py',89),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parser.py',100),
+  ('assignation -> IDENTIFIER : expression','assignation',3,'p_assign','parser.py',105),
 ]

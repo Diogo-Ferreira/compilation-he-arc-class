@@ -7,7 +7,10 @@ reserved_words = (
     'if',
     'else',
     'is',
-    'by'
+    'by',
+    'keyframes',
+    'animation',
+    'frame'
 )
 
 tokens = (
@@ -63,6 +66,7 @@ def t_IDENTIFIER(t):
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+    #return t
 
 
 t_ignore = ' \t'

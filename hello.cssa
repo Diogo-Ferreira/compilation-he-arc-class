@@ -1,6 +1,12 @@
-a:0;
-b:1;
+log "test"
 
-if a is b {
-    log 1
+for 0 to 10 by 1 {
+    log "pute"
+    log "chatte"
 }
+
+keyframes {
+    log "tamaman"
+}
+
+log "test"

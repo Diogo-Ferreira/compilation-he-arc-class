@@ -11,6 +11,8 @@ operations = {
 
 vars = {}
 
+css_output = ""
+
 
 @addToClass(AST.ProgramNode)
 def execute(self):
@@ -24,7 +26,11 @@ def execute(self):
         try:
             return vars[self.tok]
         except KeyError:
-            print('*** Error: variable %s undefined ! ' % self.tok)
+
+            if "\"" in self.tok:
+                return self.tok.replace("\"", "")
+            else:
+                print('*** Error: variable %s undefined ! ' % self.tok)
     return self.tok
 
 
@@ -40,22 +46,29 @@ def execute(self):
 @addToClass(AST.AssignNode)
 def execute(self):
     vars[self.children[0].tok] = self.children[1].execute()
-    #print("SET %s" % type(self.children[1]))
+    # print("SET %s" % type(self.children[1]))
 
 
 @addToClass(AST.PrintNode)
 def execute(self):
     print(self.children[0].execute())
 
+
+@addToClass(AST.CssNode)
+def execute(self):
+    print(self)
+
+
 @addToClass(AST.ConditionNode)
 def execute(self):
-    if(self.children[0].execute()):
+    if (self.children[0].execute()):
         self.children[1].execute()
 
 
 @addToClass(AST.IsEqualNode)
 def execute(self):
     return self.children[0].execute() == self.children[1].execute()
+
 
 @addToClass(AST.WhileNode)
 def execute(self):
@@ -67,6 +80,22 @@ def execute(self):
         vars['ix'] = ix
         self.children[3].execute()
         ix += increment
+
+
+@addToClass(AST.KeyframesNode)
+def execute(self):
+    print(self)
+
+
+@addToClass(AST.AnimationNode)
+def execute(self):
+    print(self)
+
+
+@addToClass(AST.FrameNode)
+def execute(self):
+    print(self)
+
 
 if __name__ == "__main__":
     from parser import parse

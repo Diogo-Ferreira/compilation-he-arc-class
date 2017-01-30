@@ -133,6 +133,18 @@ class IsEqualNode(Node):
     type = 'Is'
 
 
+class KeyframesNode(Node):
+    type = 'Keyframes'
+
+
+class AnimationNode(Node):
+    type = 'Animation'
+
+
+class FrameNode(Node):
+    type = 'Frame'
+
+
 class EntryNode(Node):
     type = 'ENTRY'
 

@@ -1,3 +1,5 @@
+import uuid
+
 import ply.yacc as yacc
 
 from lex import tokens
@@ -12,14 +14,16 @@ def p_programme_statement(p):
 
 
 def p_programme_recursive(p):
-    ''' programme : statement ';' programme '''
-    p[0] = AST.ProgramNode([p[1]] + p[3].children)
+    ''' programme : statement programme '''
+    p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
 def p_statement(p):
     ''' statement : assignation
         | structure
-        | condition '''
+        | condition
+        | css
+        | keyframes'''
     p[0] = p[1]
 
 
@@ -30,7 +34,8 @@ def p_statement_print(p):
 
 def p_condition(p):
     ''' condition : IF expression '{' programme '}' '''
-    p[0] = AST.ConditionNode([p[2],p[4]])
+    p[0] = AST.ConditionNode([p[2], p[4]])
+
 
 def p_structure(p):
     ''' structure : FOR NUMBER TO NUMBER BY NUMBER '{' programme '}' '''
@@ -44,7 +49,22 @@ def p_structure(p):
 
 def p_css(p):
     '''css : '@' STRING'''
-    p[0] = AST.CssNode(p[1])
+    p[0] = AST.CssNode(AST.TokenNode(p[2]))
+
+
+def p_keyframes(p):
+    '''keyframes : KEYFRAMES '{' programme '}' '''
+    p[0] = AST.KeyframesNode([p[3]])
+
+
+def p_animation(p):
+    '''animation : ANIMATION '(' assignation ')' '{' programme '}' '''
+    p[0] = AST.AnimationNode([p[3], p[6]])
+
+
+def p_frame(p):
+    '''frame : FRAME '(' assignation ')' '{' programme '}' '''
+    p[0] = AST.FrameNode([p[3], p[6]])
 
 
 def p_expression_op(p):
@@ -52,13 +72,16 @@ def p_expression_op(p):
             | expression MUL_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
+
 def p_expression_logic(p):
     ''' expression : expression IS expression '''
     p[0] = AST.IsEqualNode([p[1], p[3]])
 
+
 def p_expression_num_or_var(p):
     '''expression : NUMBER
-        | IDENTIFIER '''
+        | IDENTIFIER
+        | STRING '''
     p[0] = AST.TokenNode(p[1])
 
 
@@ -66,10 +89,11 @@ def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
 
-
+"""
 def p_function(p):
     '''expression : IDENTIFIER '(' ')' '{' programme '}' '''
     p[0] = AST.FuncNode([p[1], p[5]])
+"""
 
 
 def p_minus(p):
