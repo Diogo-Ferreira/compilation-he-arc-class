@@ -20,7 +20,6 @@ css_context = [("selector","body")]
 
 @addToClass(AST.ProgramNode)
 def execute(self):
-    print("szds")
     for c in self.children:
         c.execute()
 
@@ -108,19 +107,24 @@ def execute(self):
 @addToClass(AST.AnimationNode)
 def execute(self):
     name = self.children[0].children[1].tok
+    selector = self.children[1].children[1].tok
     css_context.append(
-        ("selector", name)
+        ("animation", name, selector)
     )
-    return self.children[1].execute()
+    res = self.children[2].execute()
+    css_context.pop()
+    return res
 
 
 @addToClass(AST.FrameNode)
 def execute(self):
-    name = self.children[0].children[1].tok
+    value = self.children[0].children[1].tok
     css_context.append(
-        ("frame", name)
+        ("frame", value)
     )
-    return self.children[1].execute()
+    res = self.children[1].execute()
+    css_context.pop()
+    return res
 
 
 if __name__ == "__main__":

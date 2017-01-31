@@ -61,13 +61,17 @@ def p_keyframes(p):
 
 
 def p_animation(p):
-    '''animation : ANIMATION '(' assignation ')' '{' programme '}' '''
-    p[0] = AST.AnimationNode([p[3], p[6]])
+    '''animation : ANIMATION '(' STRING ',' STRING ')' '{' programme '}' '''
+    p[0] = AST.AnimationNode([
+        AST.AssignNode([AST.TokenNode("animation_name"), AST.TokenNode(p[3])]),
+        AST.AssignNode([AST.TokenNode("selector"), AST.TokenNode(p[5])]),
+        p[8]
+    ])
 
 
 def p_frame(p):
-    '''frame : FRAME '(' assignation ')' '{' programme '}' '''
-    p[0] = AST.FrameNode([p[3], p[6]])
+    '''frame : FRAME '(' NUMBER ')' '{' programme '}' '''
+    p[0] = AST.FrameNode([AST.AssignNode([AST.TokenNode("value"), AST.TokenNode(p[3])]), p[6]])
 
 
 def p_expression_op(p):

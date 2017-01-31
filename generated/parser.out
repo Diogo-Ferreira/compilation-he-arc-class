@@ -23,8 +23,8 @@ Rule 11    condition -> IF expression { programme }
 Rule 12    structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
 Rule 13    css -> @ STRING
 Rule 14    keyframes -> KEYFRAMES ( STRING ) { programme }
-Rule 15    animation -> ANIMATION ( assignation ) { programme }
-Rule 16    frame -> FRAME ( assignation ) { programme }
+Rule 15    animation -> ANIMATION ( STRING , STRING ) { programme }
+Rule 16    frame -> FRAME ( NUMBER ) { programme }
 Rule 17    expression -> expression ADD_OP expression
 Rule 18    expression -> expression MUL_OP expression
 Rule 19    expression -> expression IS expression
@@ -39,6 +39,7 @@ Terminals, with rules where they appear
 
 (                    : 14 15 16 23
 )                    : 14 15 16 23
+,                    : 15
 :                    : 25
 @                    : 13
 ADD_OP               : 17 24
@@ -55,8 +56,8 @@ KEYFRAMES            : 14
 LOG                  : 10
 MOD                  : 
 MUL_OP               : 18
-NUMBER               : 12 12 12 20
-STRING               : 13 14 22
+NUMBER               : 12 12 12 16 20
+STRING               : 13 14 15 15 22
 TO                   : 12
 error                : 
 {                    : 11 12 14 15 16
@@ -65,7 +66,7 @@ error                :
 Nonterminals, with rules where they appear
 
 animation            : 8
-assignation          : 3 15 16
+assignation          : 3
 condition            : 5
 css                  : 6
 expression           : 10 11 17 17 18 18 19 19 23 24 25
@@ -95,8 +96,8 @@ state 0
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     LOG             shift and go to state 1
     IDENTIFIER      shift and go to state 14
@@ -171,7 +172,7 @@ state 3
 
 state 4
 
-    (16) frame -> FRAME . ( assignation ) { programme }
+    (16) frame -> FRAME . ( NUMBER ) { programme }
 
     (               shift and go to state 24
 
@@ -227,8 +228,8 @@ state 7
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     }               reduce using rule 1 (programme -> statement .)
     $end            reduce using rule 1 (programme -> statement .)
@@ -283,7 +284,7 @@ state 10
 
 state 11
 
-    (15) animation -> ANIMATION . ( assignation ) { programme }
+    (15) animation -> ANIMATION . ( STRING , STRING ) { programme }
 
     (               shift and go to state 28
 
@@ -487,12 +488,10 @@ state 23
 
 state 24
 
-    (16) frame -> FRAME ( . assignation ) { programme }
-    (25) assignation -> . IDENTIFIER : expression
+    (16) frame -> FRAME ( . NUMBER ) { programme }
 
-    IDENTIFIER      shift and go to state 14
+    NUMBER          shift and go to state 37
 
-    assignation                    shift and go to state 37
 
 state 25
 
@@ -527,12 +526,10 @@ state 27
 
 state 28
 
-    (15) animation -> ANIMATION ( . assignation ) { programme }
-    (25) assignation -> . IDENTIFIER : expression
+    (15) animation -> ANIMATION ( . STRING , STRING ) { programme }
 
-    IDENTIFIER      shift and go to state 14
+    STRING          shift and go to state 39
 
-    assignation                    shift and go to state 39
 
 state 29
 
@@ -677,7 +674,7 @@ state 36
 
 state 37
 
-    (16) frame -> FRAME ( assignation . ) { programme }
+    (16) frame -> FRAME ( NUMBER . ) { programme }
 
     )               shift and go to state 47
 
@@ -691,9 +688,9 @@ state 38
 
 state 39
 
-    (15) animation -> ANIMATION ( assignation . ) { programme }
+    (15) animation -> ANIMATION ( STRING . , STRING ) { programme }
 
-    )               shift and go to state 49
+    ,               shift and go to state 49
 
 
 state 40
@@ -714,8 +711,8 @@ state 40
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     LOG             shift and go to state 1
     IDENTIFIER      shift and go to state 14
@@ -753,7 +750,6 @@ state 41
     FRAME           reduce using rule 25 (assignation -> IDENTIFIER : expression .)
     }               reduce using rule 25 (assignation -> IDENTIFIER : expression .)
     $end            reduce using rule 25 (assignation -> IDENTIFIER : expression .)
-    )               reduce using rule 25 (assignation -> IDENTIFIER : expression .)
     ADD_OP          shift and go to state 36
     MUL_OP          shift and go to state 35
     IS              shift and go to state 34
@@ -876,7 +872,7 @@ state 46
 
 state 47
 
-    (16) frame -> FRAME ( assignation ) . { programme }
+    (16) frame -> FRAME ( NUMBER ) . { programme }
 
     {               shift and go to state 52
 
@@ -890,9 +886,9 @@ state 48
 
 state 49
 
-    (15) animation -> ANIMATION ( assignation ) . { programme }
+    (15) animation -> ANIMATION ( STRING , . STRING ) { programme }
 
-    {               shift and go to state 54
+    STRING          shift and go to state 54
 
 
 state 50
@@ -911,7 +907,7 @@ state 51
 
 state 52
 
-    (16) frame -> FRAME ( assignation ) { . programme }
+    (16) frame -> FRAME ( NUMBER ) { . programme }
     (1) programme -> . statement
     (2) programme -> . statement programme
     (3) statement -> . assignation
@@ -927,8 +923,8 @@ state 52
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     LOG             shift and go to state 1
     IDENTIFIER      shift and go to state 14
@@ -958,43 +954,10 @@ state 53
 
 state 54
 
-    (15) animation -> ANIMATION ( assignation ) { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement programme
-    (3) statement -> . assignation
-    (4) statement -> . structure
-    (5) statement -> . condition
-    (6) statement -> . css
-    (7) statement -> . keyframes
-    (8) statement -> . animation
-    (9) statement -> . frame
-    (10) statement -> . LOG expression
-    (25) assignation -> . IDENTIFIER : expression
-    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (11) condition -> . IF expression { programme }
-    (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> ANIMATION ( STRING , STRING . ) { programme }
 
-    LOG             shift and go to state 1
-    IDENTIFIER      shift and go to state 14
-    FOR             shift and go to state 10
-    IF              shift and go to state 13
-    @               shift and go to state 9
-    KEYFRAMES       shift and go to state 16
-    ANIMATION       shift and go to state 11
-    FRAME           shift and go to state 4
+    )               shift and go to state 59
 
-    assignation                    shift and go to state 15
-    frame                          shift and go to state 2
-    condition                      shift and go to state 12
-    keyframes                      shift and go to state 3
-    animation                      shift and go to state 5
-    css                            shift and go to state 8
-    statement                      shift and go to state 7
-    structure                      shift and go to state 6
-    programme                      shift and go to state 59
 
 state 55
 
@@ -1030,8 +993,8 @@ state 56
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     LOG             shift and go to state 1
     IDENTIFIER      shift and go to state 14
@@ -1054,7 +1017,7 @@ state 56
 
 state 57
 
-    (16) frame -> FRAME ( assignation ) { programme . }
+    (16) frame -> FRAME ( NUMBER ) { programme . }
 
     }               shift and go to state 61
 
@@ -1068,9 +1031,9 @@ state 58
 
 state 59
 
-    (15) animation -> ANIMATION ( assignation ) { programme . }
+    (15) animation -> ANIMATION ( STRING , STRING ) . { programme }
 
-    }               shift and go to state 63
+    {               shift and go to state 63
 
 
 state 60
@@ -1082,18 +1045,18 @@ state 60
 
 state 61
 
-    (16) frame -> FRAME ( assignation ) { programme } .
+    (16) frame -> FRAME ( NUMBER ) { programme } .
 
-    LOG             reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    IDENTIFIER      reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    FOR             reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    IF              reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    @               reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    KEYFRAMES       reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    ANIMATION       reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    FRAME           reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    $end            reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
-    }               reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    LOG             reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    IDENTIFIER      reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    FOR             reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    IF              reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    @               reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    KEYFRAMES       reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    ANIMATION       reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    FRAME           reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    $end            reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    }               reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
 
 
 state 62
@@ -1114,8 +1077,8 @@ state 62
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
     (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( assignation ) { programme }
-    (16) frame -> . FRAME ( assignation ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
     LOG             shift and go to state 1
     IDENTIFIER      shift and go to state 14
@@ -1138,19 +1101,43 @@ state 62
 
 state 63
 
-    (15) animation -> ANIMATION ( assignation ) { programme } .
+    (15) animation -> ANIMATION ( STRING , STRING ) { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
-    LOG             reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    IDENTIFIER      reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    FOR             reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    IF              reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    @               reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    KEYFRAMES       reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    ANIMATION       reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    FRAME           reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    }               reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
-    $end            reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
 
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 66
 
 state 64
 
@@ -1172,10 +1159,17 @@ state 65
 
     (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
 
-    }               shift and go to state 66
+    }               shift and go to state 67
 
 
 state 66
+
+    (15) animation -> ANIMATION ( STRING , STRING ) { programme . }
+
+    }               shift and go to state 68
+
+
+state 67
 
     (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
 
@@ -1189,6 +1183,22 @@ state 66
     FRAME           reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
     }               reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
     $end            reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+
+
+state 68
+
+    (15) animation -> ANIMATION ( STRING , STRING ) { programme } .
+
+    LOG             reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    IDENTIFIER      reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    FOR             reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    IF              reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    @               reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    KEYFRAMES       reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    ANIMATION       reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    FRAME           reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    }               reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
+    $end            reduce using rule 15 (animation -> ANIMATION ( STRING , STRING ) { programme } .)
 
 WARNING: 
 WARNING: Conflicts:

@@ -1,11 +1,14 @@
 
 
-keyframes("myname") {
+animation("anim1","div") {
 
     keyframes("myname2"){
         @ "test2"
-    }
 
+        frame(5){
+            @ "test3"
+        }
+    }
 
     @ "test"
 }
