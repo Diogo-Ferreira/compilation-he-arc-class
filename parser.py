@@ -23,7 +23,9 @@ def p_statement(p):
         | structure
         | condition
         | css
-        | keyframes'''
+        | keyframes
+        | animation
+        | frame '''
     p[0] = p[1]
 
 
@@ -52,9 +54,10 @@ def p_css(p):
     p[0] = AST.CssNode(AST.TokenNode(p[2]))
 
 
+
 def p_keyframes(p):
-    '''keyframes : KEYFRAMES '{' programme '}' '''
-    p[0] = AST.KeyframesNode([p[3]])
+    '''keyframes : KEYFRAMES '(' STRING ')' '{' programme '}' '''
+    p[0] = AST.KeyframesNode([AST.AssignNode([AST.TokenNode("name"), AST.TokenNode(p[3])]), p[6]])
 
 
 def p_animation(p):

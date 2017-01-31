@@ -10,12 +10,17 @@ operations = {
 }
 
 vars = {}
+pile = []
+
 
 css_output = ""
+
+css_context = [("selector","body")]
 
 
 @addToClass(AST.ProgramNode)
 def execute(self):
+    print("szds")
     for c in self.children:
         c.execute()
 
@@ -56,7 +61,14 @@ def execute(self):
 
 @addToClass(AST.CssNode)
 def execute(self):
-    print(self)
+
+    last = css_context[-1]
+
+    css = self.children[0].tok
+
+    print("This will be outputed in %s with the value %s" % (last,css))
+
+    return
 
 
 @addToClass(AST.ConditionNode)
@@ -84,17 +96,31 @@ def execute(self):
 
 @addToClass(AST.KeyframesNode)
 def execute(self):
-    print(self)
+    name = self.children[0].children[1].tok
+    css_context.append(
+        ("keyframes", name)
+    )
+    res = self.children[1].execute()
+    css_context.pop()
+    return res
 
 
 @addToClass(AST.AnimationNode)
 def execute(self):
-    print(self)
+    name = self.children[0].children[1].tok
+    css_context.append(
+        ("selector", name)
+    )
+    return self.children[1].execute()
 
 
 @addToClass(AST.FrameNode)
 def execute(self):
-    print(self)
+    name = self.children[0].children[1].tok
+    css_context.append(
+        ("frame", name)
+    )
+    return self.children[1].execute()
 
 
 if __name__ == "__main__":

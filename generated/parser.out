@@ -16,60 +16,62 @@ Rule 4     statement -> structure
 Rule 5     statement -> condition
 Rule 6     statement -> css
 Rule 7     statement -> keyframes
-Rule 8     statement -> LOG expression
-Rule 9     condition -> IF expression { programme }
-Rule 10    structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
-Rule 11    css -> @ STRING
-Rule 12    keyframes -> KEYFRAMES { programme }
-Rule 13    animation -> ANIMATION ( assignation ) { programme }
-Rule 14    frame -> FRAME ( assignation ) { programme }
-Rule 15    expression -> expression ADD_OP expression
-Rule 16    expression -> expression MUL_OP expression
-Rule 17    expression -> expression IS expression
-Rule 18    expression -> NUMBER
-Rule 19    expression -> IDENTIFIER
-Rule 20    expression -> STRING
-Rule 21    expression -> ( expression )
-Rule 22    expression -> ADD_OP expression
-Rule 23    assignation -> IDENTIFIER : expression
+Rule 8     statement -> animation
+Rule 9     statement -> frame
+Rule 10    statement -> LOG expression
+Rule 11    condition -> IF expression { programme }
+Rule 12    structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
+Rule 13    css -> @ STRING
+Rule 14    keyframes -> KEYFRAMES ( STRING ) { programme }
+Rule 15    animation -> ANIMATION ( assignation ) { programme }
+Rule 16    frame -> FRAME ( assignation ) { programme }
+Rule 17    expression -> expression ADD_OP expression
+Rule 18    expression -> expression MUL_OP expression
+Rule 19    expression -> expression IS expression
+Rule 20    expression -> NUMBER
+Rule 21    expression -> IDENTIFIER
+Rule 22    expression -> STRING
+Rule 23    expression -> ( expression )
+Rule 24    expression -> ADD_OP expression
+Rule 25    assignation -> IDENTIFIER : expression
 
 Terminals, with rules where they appear
 
-(                    : 13 14 21
-)                    : 13 14 21
-:                    : 23
-@                    : 11
-ADD_OP               : 15 22
-ANIMATION            : 13
-BY                   : 10
+(                    : 14 15 16 23
+)                    : 14 15 16 23
+:                    : 25
+@                    : 13
+ADD_OP               : 17 24
+ANIMATION            : 15
+BY                   : 12
 ELSE                 : 
-FOR                  : 10
-FRAME                : 14
+FOR                  : 12
+FRAME                : 16
 FUNCTION             : 
-IDENTIFIER           : 19 23
-IF                   : 9
-IS                   : 17
-KEYFRAMES            : 12
-LOG                  : 8
+IDENTIFIER           : 21 25
+IF                   : 11
+IS                   : 19
+KEYFRAMES            : 14
+LOG                  : 10
 MOD                  : 
-MUL_OP               : 16
-NUMBER               : 10 10 10 18
-STRING               : 11 20
-TO                   : 10
+MUL_OP               : 18
+NUMBER               : 12 12 12 20
+STRING               : 13 14 22
+TO                   : 12
 error                : 
-{                    : 9 10 12 13 14
-}                    : 9 10 12 13 14
+{                    : 11 12 14 15 16
+}                    : 11 12 14 15 16
 
 Nonterminals, with rules where they appear
 
-animation            : 
-assignation          : 3 13 14
+animation            : 8
+assignation          : 3 15 16
 condition            : 5
 css                  : 6
-expression           : 8 9 15 15 16 16 17 17 21 22 23
-frame                : 
+expression           : 10 11 17 17 18 18 19 19 23 24 25
+frame                : 9
 keyframes            : 7
-programme            : 2 9 10 12 13 14 0
+programme            : 2 11 12 14 15 16 0
 statement            : 1 2
 structure            : 4
 
@@ -85,118 +87,73 @@ state 0
     (5) statement -> . condition
     (6) statement -> . css
     (7) statement -> . keyframes
-    (8) statement -> . LOG expression
-    (23) assignation -> . IDENTIFIER : expression
-    (10) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (9) condition -> . IF expression { programme }
-    (11) css -> . @ STRING
-    (12) keyframes -> . KEYFRAMES { programme }
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
 
-    LOG             shift and go to state 5
-    IDENTIFIER      shift and go to state 11
-    FOR             shift and go to state 4
-    IF              shift and go to state 6
-    @               shift and go to state 1
-    KEYFRAMES       shift and go to state 2
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
 
-    assignation                    shift and go to state 3
-    condition                      shift and go to state 7
-    keyframes                      shift and go to state 8
-    css                            shift and go to state 9
-    statement                      shift and go to state 10
-    structure                      shift and go to state 12
-    programme                      shift and go to state 13
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 17
 
 state 1
 
-    (11) css -> @ . STRING
+    (10) statement -> LOG . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    STRING          shift and go to state 14
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 22
 
 state 2
 
-    (12) keyframes -> KEYFRAMES . { programme }
+    (9) statement -> frame .
 
-    {               shift and go to state 15
+    LOG             reduce using rule 9 (statement -> frame .)
+    IDENTIFIER      reduce using rule 9 (statement -> frame .)
+    FOR             reduce using rule 9 (statement -> frame .)
+    IF              reduce using rule 9 (statement -> frame .)
+    @               reduce using rule 9 (statement -> frame .)
+    KEYFRAMES       reduce using rule 9 (statement -> frame .)
+    ANIMATION       reduce using rule 9 (statement -> frame .)
+    FRAME           reduce using rule 9 (statement -> frame .)
+    $end            reduce using rule 9 (statement -> frame .)
+    }               reduce using rule 9 (statement -> frame .)
 
 
 state 3
-
-    (3) statement -> assignation .
-
-    LOG             reduce using rule 3 (statement -> assignation .)
-    IDENTIFIER      reduce using rule 3 (statement -> assignation .)
-    FOR             reduce using rule 3 (statement -> assignation .)
-    IF              reduce using rule 3 (statement -> assignation .)
-    @               reduce using rule 3 (statement -> assignation .)
-    KEYFRAMES       reduce using rule 3 (statement -> assignation .)
-    }               reduce using rule 3 (statement -> assignation .)
-    $end            reduce using rule 3 (statement -> assignation .)
-
-
-state 4
-
-    (10) structure -> FOR . NUMBER TO NUMBER BY NUMBER { programme }
-
-    NUMBER          shift and go to state 16
-
-
-state 5
-
-    (8) statement -> LOG . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
-
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
-
-    expression                     shift and go to state 21
-
-state 6
-
-    (9) condition -> IF . expression { programme }
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
-
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
-
-    expression                     shift and go to state 23
-
-state 7
-
-    (5) statement -> condition .
-
-    LOG             reduce using rule 5 (statement -> condition .)
-    IDENTIFIER      reduce using rule 5 (statement -> condition .)
-    FOR             reduce using rule 5 (statement -> condition .)
-    IF              reduce using rule 5 (statement -> condition .)
-    @               reduce using rule 5 (statement -> condition .)
-    KEYFRAMES       reduce using rule 5 (statement -> condition .)
-    }               reduce using rule 5 (statement -> condition .)
-    $end            reduce using rule 5 (statement -> condition .)
-
-
-state 8
 
     (7) statement -> keyframes .
 
@@ -206,25 +163,52 @@ state 8
     IF              reduce using rule 7 (statement -> keyframes .)
     @               reduce using rule 7 (statement -> keyframes .)
     KEYFRAMES       reduce using rule 7 (statement -> keyframes .)
-    }               reduce using rule 7 (statement -> keyframes .)
+    ANIMATION       reduce using rule 7 (statement -> keyframes .)
+    FRAME           reduce using rule 7 (statement -> keyframes .)
     $end            reduce using rule 7 (statement -> keyframes .)
+    }               reduce using rule 7 (statement -> keyframes .)
 
 
-state 9
+state 4
 
-    (6) statement -> css .
+    (16) frame -> FRAME . ( assignation ) { programme }
 
-    LOG             reduce using rule 6 (statement -> css .)
-    IDENTIFIER      reduce using rule 6 (statement -> css .)
-    FOR             reduce using rule 6 (statement -> css .)
-    IF              reduce using rule 6 (statement -> css .)
-    @               reduce using rule 6 (statement -> css .)
-    KEYFRAMES       reduce using rule 6 (statement -> css .)
-    }               reduce using rule 6 (statement -> css .)
-    $end            reduce using rule 6 (statement -> css .)
+    (               shift and go to state 24
 
 
-state 10
+state 5
+
+    (8) statement -> animation .
+
+    LOG             reduce using rule 8 (statement -> animation .)
+    IDENTIFIER      reduce using rule 8 (statement -> animation .)
+    FOR             reduce using rule 8 (statement -> animation .)
+    IF              reduce using rule 8 (statement -> animation .)
+    @               reduce using rule 8 (statement -> animation .)
+    KEYFRAMES       reduce using rule 8 (statement -> animation .)
+    ANIMATION       reduce using rule 8 (statement -> animation .)
+    FRAME           reduce using rule 8 (statement -> animation .)
+    $end            reduce using rule 8 (statement -> animation .)
+    }               reduce using rule 8 (statement -> animation .)
+
+
+state 6
+
+    (4) statement -> structure .
+
+    LOG             reduce using rule 4 (statement -> structure .)
+    IDENTIFIER      reduce using rule 4 (statement -> structure .)
+    FOR             reduce using rule 4 (statement -> structure .)
+    IF              reduce using rule 4 (statement -> structure .)
+    @               reduce using rule 4 (statement -> structure .)
+    KEYFRAMES       reduce using rule 4 (statement -> structure .)
+    ANIMATION       reduce using rule 4 (statement -> structure .)
+    FRAME           reduce using rule 4 (statement -> structure .)
+    $end            reduce using rule 4 (statement -> structure .)
+    }               reduce using rule 4 (statement -> structure .)
+
+
+state 7
 
     (1) programme -> statement .
     (2) programme -> statement . programme
@@ -235,592 +219,486 @@ state 10
     (5) statement -> . condition
     (6) statement -> . css
     (7) statement -> . keyframes
-    (8) statement -> . LOG expression
-    (23) assignation -> . IDENTIFIER : expression
-    (10) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (9) condition -> . IF expression { programme }
-    (11) css -> . @ STRING
-    (12) keyframes -> . KEYFRAMES { programme }
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
 
-    $end            reduce using rule 1 (programme -> statement .)
     }               reduce using rule 1 (programme -> statement .)
-    LOG             shift and go to state 5
-    IDENTIFIER      shift and go to state 11
-    FOR             shift and go to state 4
-    IF              shift and go to state 6
-    @               shift and go to state 1
-    KEYFRAMES       shift and go to state 2
+    $end            reduce using rule 1 (programme -> statement .)
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
 
-    assignation                    shift and go to state 3
-    condition                      shift and go to state 7
-    keyframes                      shift and go to state 8
-    css                            shift and go to state 9
-    statement                      shift and go to state 10
-    structure                      shift and go to state 12
-    programme                      shift and go to state 24
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 25
+
+state 8
+
+    (6) statement -> css .
+
+    LOG             reduce using rule 6 (statement -> css .)
+    IDENTIFIER      reduce using rule 6 (statement -> css .)
+    FOR             reduce using rule 6 (statement -> css .)
+    IF              reduce using rule 6 (statement -> css .)
+    @               reduce using rule 6 (statement -> css .)
+    KEYFRAMES       reduce using rule 6 (statement -> css .)
+    ANIMATION       reduce using rule 6 (statement -> css .)
+    FRAME           reduce using rule 6 (statement -> css .)
+    $end            reduce using rule 6 (statement -> css .)
+    }               reduce using rule 6 (statement -> css .)
+
+
+state 9
+
+    (13) css -> @ . STRING
+
+    STRING          shift and go to state 26
+
+
+state 10
+
+    (12) structure -> FOR . NUMBER TO NUMBER BY NUMBER { programme }
+
+    NUMBER          shift and go to state 27
+
 
 state 11
 
-    (23) assignation -> IDENTIFIER . : expression
+    (15) animation -> ANIMATION . ( assignation ) { programme }
 
-    :               shift and go to state 25
+    (               shift and go to state 28
 
 
 state 12
 
-    (4) statement -> structure .
+    (5) statement -> condition .
 
-    LOG             reduce using rule 4 (statement -> structure .)
-    IDENTIFIER      reduce using rule 4 (statement -> structure .)
-    FOR             reduce using rule 4 (statement -> structure .)
-    IF              reduce using rule 4 (statement -> structure .)
-    @               reduce using rule 4 (statement -> structure .)
-    KEYFRAMES       reduce using rule 4 (statement -> structure .)
-    }               reduce using rule 4 (statement -> structure .)
-    $end            reduce using rule 4 (statement -> structure .)
+    LOG             reduce using rule 5 (statement -> condition .)
+    IDENTIFIER      reduce using rule 5 (statement -> condition .)
+    FOR             reduce using rule 5 (statement -> condition .)
+    IF              reduce using rule 5 (statement -> condition .)
+    @               reduce using rule 5 (statement -> condition .)
+    KEYFRAMES       reduce using rule 5 (statement -> condition .)
+    ANIMATION       reduce using rule 5 (statement -> condition .)
+    FRAME           reduce using rule 5 (statement -> condition .)
+    $end            reduce using rule 5 (statement -> condition .)
+    }               reduce using rule 5 (statement -> condition .)
 
 
 state 13
+
+    (11) condition -> IF . expression { programme }
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
+
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
+
+    expression                     shift and go to state 29
+
+state 14
+
+    (25) assignation -> IDENTIFIER . : expression
+
+    :               shift and go to state 30
+
+
+state 15
+
+    (3) statement -> assignation .
+
+    LOG             reduce using rule 3 (statement -> assignation .)
+    IDENTIFIER      reduce using rule 3 (statement -> assignation .)
+    FOR             reduce using rule 3 (statement -> assignation .)
+    IF              reduce using rule 3 (statement -> assignation .)
+    @               reduce using rule 3 (statement -> assignation .)
+    KEYFRAMES       reduce using rule 3 (statement -> assignation .)
+    ANIMATION       reduce using rule 3 (statement -> assignation .)
+    FRAME           reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
+    }               reduce using rule 3 (statement -> assignation .)
+
+
+state 16
+
+    (14) keyframes -> KEYFRAMES . ( STRING ) { programme }
+
+    (               shift and go to state 31
+
+
+state 17
 
     (0) S' -> programme .
 
 
 
-state 14
-
-    (11) css -> @ STRING .
-
-    LOG             reduce using rule 11 (css -> @ STRING .)
-    IDENTIFIER      reduce using rule 11 (css -> @ STRING .)
-    FOR             reduce using rule 11 (css -> @ STRING .)
-    IF              reduce using rule 11 (css -> @ STRING .)
-    @               reduce using rule 11 (css -> @ STRING .)
-    KEYFRAMES       reduce using rule 11 (css -> @ STRING .)
-    }               reduce using rule 11 (css -> @ STRING .)
-    $end            reduce using rule 11 (css -> @ STRING .)
-
-
-state 15
-
-    (12) keyframes -> KEYFRAMES { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement programme
-    (3) statement -> . assignation
-    (4) statement -> . structure
-    (5) statement -> . condition
-    (6) statement -> . css
-    (7) statement -> . keyframes
-    (8) statement -> . LOG expression
-    (23) assignation -> . IDENTIFIER : expression
-    (10) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (9) condition -> . IF expression { programme }
-    (11) css -> . @ STRING
-    (12) keyframes -> . KEYFRAMES { programme }
-
-    LOG             shift and go to state 5
-    IDENTIFIER      shift and go to state 11
-    FOR             shift and go to state 4
-    IF              shift and go to state 6
-    @               shift and go to state 1
-    KEYFRAMES       shift and go to state 2
-
-    assignation                    shift and go to state 3
-    condition                      shift and go to state 7
-    keyframes                      shift and go to state 8
-    css                            shift and go to state 9
-    statement                      shift and go to state 10
-    structure                      shift and go to state 12
-    programme                      shift and go to state 26
-
-state 16
-
-    (10) structure -> FOR NUMBER . TO NUMBER BY NUMBER { programme }
-
-    TO              shift and go to state 27
-
-
-state 17
-
-    (21) expression -> ( . expression )
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
-
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
-
-    expression                     shift and go to state 28
-
 state 18
 
-    (18) expression -> NUMBER .
+    (23) expression -> ( . expression )
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    ADD_OP          reduce using rule 18 (expression -> NUMBER .)
-    MUL_OP          reduce using rule 18 (expression -> NUMBER .)
-    IS              reduce using rule 18 (expression -> NUMBER .)
-    LOG             reduce using rule 18 (expression -> NUMBER .)
-    IDENTIFIER      reduce using rule 18 (expression -> NUMBER .)
-    FOR             reduce using rule 18 (expression -> NUMBER .)
-    IF              reduce using rule 18 (expression -> NUMBER .)
-    @               reduce using rule 18 (expression -> NUMBER .)
-    KEYFRAMES       reduce using rule 18 (expression -> NUMBER .)
-    $end            reduce using rule 18 (expression -> NUMBER .)
-    }               reduce using rule 18 (expression -> NUMBER .)
-    {               reduce using rule 18 (expression -> NUMBER .)
-    )               reduce using rule 18 (expression -> NUMBER .)
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 32
 
 state 19
 
-    (22) expression -> ADD_OP . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
+    (20) expression -> NUMBER .
 
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
+    ADD_OP          reduce using rule 20 (expression -> NUMBER .)
+    MUL_OP          reduce using rule 20 (expression -> NUMBER .)
+    IS              reduce using rule 20 (expression -> NUMBER .)
+    LOG             reduce using rule 20 (expression -> NUMBER .)
+    IDENTIFIER      reduce using rule 20 (expression -> NUMBER .)
+    FOR             reduce using rule 20 (expression -> NUMBER .)
+    IF              reduce using rule 20 (expression -> NUMBER .)
+    @               reduce using rule 20 (expression -> NUMBER .)
+    KEYFRAMES       reduce using rule 20 (expression -> NUMBER .)
+    ANIMATION       reduce using rule 20 (expression -> NUMBER .)
+    FRAME           reduce using rule 20 (expression -> NUMBER .)
+    $end            reduce using rule 20 (expression -> NUMBER .)
+    }               reduce using rule 20 (expression -> NUMBER .)
+    {               reduce using rule 20 (expression -> NUMBER .)
+    )               reduce using rule 20 (expression -> NUMBER .)
 
-    expression                     shift and go to state 29
 
 state 20
 
-    (19) expression -> IDENTIFIER .
+    (24) expression -> ADD_OP . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    ADD_OP          reduce using rule 19 (expression -> IDENTIFIER .)
-    MUL_OP          reduce using rule 19 (expression -> IDENTIFIER .)
-    IS              reduce using rule 19 (expression -> IDENTIFIER .)
-    LOG             reduce using rule 19 (expression -> IDENTIFIER .)
-    IDENTIFIER      reduce using rule 19 (expression -> IDENTIFIER .)
-    FOR             reduce using rule 19 (expression -> IDENTIFIER .)
-    IF              reduce using rule 19 (expression -> IDENTIFIER .)
-    @               reduce using rule 19 (expression -> IDENTIFIER .)
-    KEYFRAMES       reduce using rule 19 (expression -> IDENTIFIER .)
-    $end            reduce using rule 19 (expression -> IDENTIFIER .)
-    }               reduce using rule 19 (expression -> IDENTIFIER .)
-    {               reduce using rule 19 (expression -> IDENTIFIER .)
-    )               reduce using rule 19 (expression -> IDENTIFIER .)
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 33
 
 state 21
 
-    (8) statement -> LOG expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (21) expression -> IDENTIFIER .
 
-    LOG             reduce using rule 8 (statement -> LOG expression .)
-    IDENTIFIER      reduce using rule 8 (statement -> LOG expression .)
-    FOR             reduce using rule 8 (statement -> LOG expression .)
-    IF              reduce using rule 8 (statement -> LOG expression .)
-    @               reduce using rule 8 (statement -> LOG expression .)
-    KEYFRAMES       reduce using rule 8 (statement -> LOG expression .)
-    }               reduce using rule 8 (statement -> LOG expression .)
-    $end            reduce using rule 8 (statement -> LOG expression .)
-    ADD_OP          shift and go to state 32
-    MUL_OP          shift and go to state 31
-    IS              shift and go to state 30
+    ADD_OP          reduce using rule 21 (expression -> IDENTIFIER .)
+    MUL_OP          reduce using rule 21 (expression -> IDENTIFIER .)
+    IS              reduce using rule 21 (expression -> IDENTIFIER .)
+    LOG             reduce using rule 21 (expression -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 21 (expression -> IDENTIFIER .)
+    FOR             reduce using rule 21 (expression -> IDENTIFIER .)
+    IF              reduce using rule 21 (expression -> IDENTIFIER .)
+    @               reduce using rule 21 (expression -> IDENTIFIER .)
+    KEYFRAMES       reduce using rule 21 (expression -> IDENTIFIER .)
+    ANIMATION       reduce using rule 21 (expression -> IDENTIFIER .)
+    FRAME           reduce using rule 21 (expression -> IDENTIFIER .)
+    $end            reduce using rule 21 (expression -> IDENTIFIER .)
+    }               reduce using rule 21 (expression -> IDENTIFIER .)
+    {               reduce using rule 21 (expression -> IDENTIFIER .)
+    )               reduce using rule 21 (expression -> IDENTIFIER .)
 
 
 state 22
 
-    (20) expression -> STRING .
+    (10) statement -> LOG expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
 
-    ADD_OP          reduce using rule 20 (expression -> STRING .)
-    MUL_OP          reduce using rule 20 (expression -> STRING .)
-    IS              reduce using rule 20 (expression -> STRING .)
-    LOG             reduce using rule 20 (expression -> STRING .)
-    IDENTIFIER      reduce using rule 20 (expression -> STRING .)
-    FOR             reduce using rule 20 (expression -> STRING .)
-    IF              reduce using rule 20 (expression -> STRING .)
-    @               reduce using rule 20 (expression -> STRING .)
-    KEYFRAMES       reduce using rule 20 (expression -> STRING .)
-    $end            reduce using rule 20 (expression -> STRING .)
-    }               reduce using rule 20 (expression -> STRING .)
-    {               reduce using rule 20 (expression -> STRING .)
-    )               reduce using rule 20 (expression -> STRING .)
+    LOG             reduce using rule 10 (statement -> LOG expression .)
+    IDENTIFIER      reduce using rule 10 (statement -> LOG expression .)
+    FOR             reduce using rule 10 (statement -> LOG expression .)
+    IF              reduce using rule 10 (statement -> LOG expression .)
+    @               reduce using rule 10 (statement -> LOG expression .)
+    KEYFRAMES       reduce using rule 10 (statement -> LOG expression .)
+    ANIMATION       reduce using rule 10 (statement -> LOG expression .)
+    FRAME           reduce using rule 10 (statement -> LOG expression .)
+    $end            reduce using rule 10 (statement -> LOG expression .)
+    }               reduce using rule 10 (statement -> LOG expression .)
+    ADD_OP          shift and go to state 36
+    MUL_OP          shift and go to state 35
+    IS              shift and go to state 34
 
 
 state 23
 
-    (9) condition -> IF expression . { programme }
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (22) expression -> STRING .
 
-    {               shift and go to state 33
-    ADD_OP          shift and go to state 32
-    MUL_OP          shift and go to state 31
-    IS              shift and go to state 30
+    ADD_OP          reduce using rule 22 (expression -> STRING .)
+    MUL_OP          reduce using rule 22 (expression -> STRING .)
+    IS              reduce using rule 22 (expression -> STRING .)
+    LOG             reduce using rule 22 (expression -> STRING .)
+    IDENTIFIER      reduce using rule 22 (expression -> STRING .)
+    FOR             reduce using rule 22 (expression -> STRING .)
+    IF              reduce using rule 22 (expression -> STRING .)
+    @               reduce using rule 22 (expression -> STRING .)
+    KEYFRAMES       reduce using rule 22 (expression -> STRING .)
+    ANIMATION       reduce using rule 22 (expression -> STRING .)
+    FRAME           reduce using rule 22 (expression -> STRING .)
+    $end            reduce using rule 22 (expression -> STRING .)
+    }               reduce using rule 22 (expression -> STRING .)
+    {               reduce using rule 22 (expression -> STRING .)
+    )               reduce using rule 22 (expression -> STRING .)
 
 
 state 24
 
-    (2) programme -> statement programme .
+    (16) frame -> FRAME ( . assignation ) { programme }
+    (25) assignation -> . IDENTIFIER : expression
 
-    $end            reduce using rule 2 (programme -> statement programme .)
-    }               reduce using rule 2 (programme -> statement programme .)
+    IDENTIFIER      shift and go to state 14
 
+    assignation                    shift and go to state 37
 
 state 25
 
-    (23) assignation -> IDENTIFIER : . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
+    (2) programme -> statement programme .
 
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
+    }               reduce using rule 2 (programme -> statement programme .)
+    $end            reduce using rule 2 (programme -> statement programme .)
 
-    expression                     shift and go to state 34
 
 state 26
 
-    (12) keyframes -> KEYFRAMES { programme . }
+    (13) css -> @ STRING .
 
-    }               shift and go to state 35
+    LOG             reduce using rule 13 (css -> @ STRING .)
+    IDENTIFIER      reduce using rule 13 (css -> @ STRING .)
+    FOR             reduce using rule 13 (css -> @ STRING .)
+    IF              reduce using rule 13 (css -> @ STRING .)
+    @               reduce using rule 13 (css -> @ STRING .)
+    KEYFRAMES       reduce using rule 13 (css -> @ STRING .)
+    ANIMATION       reduce using rule 13 (css -> @ STRING .)
+    FRAME           reduce using rule 13 (css -> @ STRING .)
+    }               reduce using rule 13 (css -> @ STRING .)
+    $end            reduce using rule 13 (css -> @ STRING .)
 
 
 state 27
 
-    (10) structure -> FOR NUMBER TO . NUMBER BY NUMBER { programme }
+    (12) structure -> FOR NUMBER . TO NUMBER BY NUMBER { programme }
 
-    NUMBER          shift and go to state 36
+    TO              shift and go to state 38
 
 
 state 28
 
-    (21) expression -> ( expression . )
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (15) animation -> ANIMATION ( . assignation ) { programme }
+    (25) assignation -> . IDENTIFIER : expression
 
-    )               shift and go to state 37
-    ADD_OP          shift and go to state 32
-    MUL_OP          shift and go to state 31
-    IS              shift and go to state 30
+    IDENTIFIER      shift and go to state 14
 
+    assignation                    shift and go to state 39
 
 state 29
 
-    (22) expression -> ADD_OP expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (11) condition -> IF expression . { programme }
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
 
-    ADD_OP          reduce using rule 22 (expression -> ADD_OP expression .)
-    MUL_OP          reduce using rule 22 (expression -> ADD_OP expression .)
-    IS              reduce using rule 22 (expression -> ADD_OP expression .)
-    LOG             reduce using rule 22 (expression -> ADD_OP expression .)
-    IDENTIFIER      reduce using rule 22 (expression -> ADD_OP expression .)
-    FOR             reduce using rule 22 (expression -> ADD_OP expression .)
-    IF              reduce using rule 22 (expression -> ADD_OP expression .)
-    @               reduce using rule 22 (expression -> ADD_OP expression .)
-    KEYFRAMES       reduce using rule 22 (expression -> ADD_OP expression .)
-    $end            reduce using rule 22 (expression -> ADD_OP expression .)
-    }               reduce using rule 22 (expression -> ADD_OP expression .)
-    {               reduce using rule 22 (expression -> ADD_OP expression .)
-    )               reduce using rule 22 (expression -> ADD_OP expression .)
-
-  ! ADD_OP          [ shift and go to state 32 ]
-  ! MUL_OP          [ shift and go to state 31 ]
-  ! IS              [ shift and go to state 30 ]
+    {               shift and go to state 40
+    ADD_OP          shift and go to state 36
+    MUL_OP          shift and go to state 35
+    IS              shift and go to state 34
 
 
 state 30
 
-    (17) expression -> expression IS . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
+    (25) assignation -> IDENTIFIER : . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
-    expression                     shift and go to state 38
+    expression                     shift and go to state 41
 
 state 31
 
-    (16) expression -> expression MUL_OP . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
+    (14) keyframes -> KEYFRAMES ( . STRING ) { programme }
 
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
+    STRING          shift and go to state 42
 
-    expression                     shift and go to state 39
 
 state 32
 
-    (15) expression -> expression ADD_OP . expression
-    (15) expression -> . expression ADD_OP expression
-    (16) expression -> . expression MUL_OP expression
-    (17) expression -> . expression IS expression
-    (18) expression -> . NUMBER
-    (19) expression -> . IDENTIFIER
-    (20) expression -> . STRING
-    (21) expression -> . ( expression )
-    (22) expression -> . ADD_OP expression
+    (23) expression -> ( expression . )
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
 
-    NUMBER          shift and go to state 18
-    IDENTIFIER      shift and go to state 20
-    STRING          shift and go to state 22
-    (               shift and go to state 17
-    ADD_OP          shift and go to state 19
+    )               shift and go to state 43
+    ADD_OP          shift and go to state 36
+    MUL_OP          shift and go to state 35
+    IS              shift and go to state 34
 
-    expression                     shift and go to state 40
 
 state 33
 
-    (9) condition -> IF expression { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement programme
-    (3) statement -> . assignation
-    (4) statement -> . structure
-    (5) statement -> . condition
-    (6) statement -> . css
-    (7) statement -> . keyframes
-    (8) statement -> . LOG expression
-    (23) assignation -> . IDENTIFIER : expression
-    (10) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (9) condition -> . IF expression { programme }
-    (11) css -> . @ STRING
-    (12) keyframes -> . KEYFRAMES { programme }
+    (24) expression -> ADD_OP expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
 
-    LOG             shift and go to state 5
-    IDENTIFIER      shift and go to state 11
-    FOR             shift and go to state 4
-    IF              shift and go to state 6
-    @               shift and go to state 1
-    KEYFRAMES       shift and go to state 2
+    ADD_OP          reduce using rule 24 (expression -> ADD_OP expression .)
+    MUL_OP          reduce using rule 24 (expression -> ADD_OP expression .)
+    IS              reduce using rule 24 (expression -> ADD_OP expression .)
+    LOG             reduce using rule 24 (expression -> ADD_OP expression .)
+    IDENTIFIER      reduce using rule 24 (expression -> ADD_OP expression .)
+    FOR             reduce using rule 24 (expression -> ADD_OP expression .)
+    IF              reduce using rule 24 (expression -> ADD_OP expression .)
+    @               reduce using rule 24 (expression -> ADD_OP expression .)
+    KEYFRAMES       reduce using rule 24 (expression -> ADD_OP expression .)
+    ANIMATION       reduce using rule 24 (expression -> ADD_OP expression .)
+    FRAME           reduce using rule 24 (expression -> ADD_OP expression .)
+    $end            reduce using rule 24 (expression -> ADD_OP expression .)
+    }               reduce using rule 24 (expression -> ADD_OP expression .)
+    {               reduce using rule 24 (expression -> ADD_OP expression .)
+    )               reduce using rule 24 (expression -> ADD_OP expression .)
 
-    assignation                    shift and go to state 3
-    keyframes                      shift and go to state 8
-    condition                      shift and go to state 7
-    statement                      shift and go to state 10
-    css                            shift and go to state 9
-    structure                      shift and go to state 12
-    programme                      shift and go to state 41
+  ! ADD_OP          [ shift and go to state 36 ]
+  ! MUL_OP          [ shift and go to state 35 ]
+  ! IS              [ shift and go to state 34 ]
+
 
 state 34
 
-    (23) assignation -> IDENTIFIER : expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (19) expression -> expression IS . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    LOG             reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    IDENTIFIER      reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    FOR             reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    IF              reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    @               reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    KEYFRAMES       reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    }               reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    $end            reduce using rule 23 (assignation -> IDENTIFIER : expression .)
-    ADD_OP          shift and go to state 32
-    MUL_OP          shift and go to state 31
-    IS              shift and go to state 30
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 44
 
 state 35
 
-    (12) keyframes -> KEYFRAMES { programme } .
+    (18) expression -> expression MUL_OP . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    LOG             reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    IDENTIFIER      reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    FOR             reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    IF              reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    @               reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    KEYFRAMES       reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    }               reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
-    $end            reduce using rule 12 (keyframes -> KEYFRAMES { programme } .)
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 45
 
 state 36
 
-    (10) structure -> FOR NUMBER TO NUMBER . BY NUMBER { programme }
+    (17) expression -> expression ADD_OP . expression
+    (17) expression -> . expression ADD_OP expression
+    (18) expression -> . expression MUL_OP expression
+    (19) expression -> . expression IS expression
+    (20) expression -> . NUMBER
+    (21) expression -> . IDENTIFIER
+    (22) expression -> . STRING
+    (23) expression -> . ( expression )
+    (24) expression -> . ADD_OP expression
 
-    BY              shift and go to state 42
+    NUMBER          shift and go to state 19
+    IDENTIFIER      shift and go to state 21
+    STRING          shift and go to state 23
+    (               shift and go to state 18
+    ADD_OP          shift and go to state 20
 
+    expression                     shift and go to state 46
 
 state 37
 
-    (21) expression -> ( expression ) .
+    (16) frame -> FRAME ( assignation . ) { programme }
 
-    ADD_OP          reduce using rule 21 (expression -> ( expression ) .)
-    MUL_OP          reduce using rule 21 (expression -> ( expression ) .)
-    IS              reduce using rule 21 (expression -> ( expression ) .)
-    LOG             reduce using rule 21 (expression -> ( expression ) .)
-    IDENTIFIER      reduce using rule 21 (expression -> ( expression ) .)
-    FOR             reduce using rule 21 (expression -> ( expression ) .)
-    IF              reduce using rule 21 (expression -> ( expression ) .)
-    @               reduce using rule 21 (expression -> ( expression ) .)
-    KEYFRAMES       reduce using rule 21 (expression -> ( expression ) .)
-    $end            reduce using rule 21 (expression -> ( expression ) .)
-    }               reduce using rule 21 (expression -> ( expression ) .)
-    {               reduce using rule 21 (expression -> ( expression ) .)
-    )               reduce using rule 21 (expression -> ( expression ) .)
+    )               shift and go to state 47
 
 
 state 38
 
-    (17) expression -> expression IS expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (12) structure -> FOR NUMBER TO . NUMBER BY NUMBER { programme }
 
-  ! shift/reduce conflict for ADD_OP resolved as shift
-  ! shift/reduce conflict for MUL_OP resolved as shift
-  ! shift/reduce conflict for IS resolved as shift
-    LOG             reduce using rule 17 (expression -> expression IS expression .)
-    IDENTIFIER      reduce using rule 17 (expression -> expression IS expression .)
-    FOR             reduce using rule 17 (expression -> expression IS expression .)
-    IF              reduce using rule 17 (expression -> expression IS expression .)
-    @               reduce using rule 17 (expression -> expression IS expression .)
-    KEYFRAMES       reduce using rule 17 (expression -> expression IS expression .)
-    $end            reduce using rule 17 (expression -> expression IS expression .)
-    }               reduce using rule 17 (expression -> expression IS expression .)
-    {               reduce using rule 17 (expression -> expression IS expression .)
-    )               reduce using rule 17 (expression -> expression IS expression .)
-    ADD_OP          shift and go to state 32
-    MUL_OP          shift and go to state 31
-    IS              shift and go to state 30
-
-  ! ADD_OP          [ reduce using rule 17 (expression -> expression IS expression .) ]
-  ! MUL_OP          [ reduce using rule 17 (expression -> expression IS expression .) ]
-  ! IS              [ reduce using rule 17 (expression -> expression IS expression .) ]
+    NUMBER          shift and go to state 48
 
 
 state 39
 
-    (16) expression -> expression MUL_OP expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
+    (15) animation -> ANIMATION ( assignation . ) { programme }
 
-    ADD_OP          reduce using rule 16 (expression -> expression MUL_OP expression .)
-    MUL_OP          reduce using rule 16 (expression -> expression MUL_OP expression .)
-    IS              reduce using rule 16 (expression -> expression MUL_OP expression .)
-    LOG             reduce using rule 16 (expression -> expression MUL_OP expression .)
-    IDENTIFIER      reduce using rule 16 (expression -> expression MUL_OP expression .)
-    FOR             reduce using rule 16 (expression -> expression MUL_OP expression .)
-    IF              reduce using rule 16 (expression -> expression MUL_OP expression .)
-    @               reduce using rule 16 (expression -> expression MUL_OP expression .)
-    KEYFRAMES       reduce using rule 16 (expression -> expression MUL_OP expression .)
-    $end            reduce using rule 16 (expression -> expression MUL_OP expression .)
-    }               reduce using rule 16 (expression -> expression MUL_OP expression .)
-    {               reduce using rule 16 (expression -> expression MUL_OP expression .)
-    )               reduce using rule 16 (expression -> expression MUL_OP expression .)
-
-  ! ADD_OP          [ shift and go to state 32 ]
-  ! MUL_OP          [ shift and go to state 31 ]
-  ! IS              [ shift and go to state 30 ]
+    )               shift and go to state 49
 
 
 state 40
 
-    (15) expression -> expression ADD_OP expression .
-    (15) expression -> expression . ADD_OP expression
-    (16) expression -> expression . MUL_OP expression
-    (17) expression -> expression . IS expression
-
-    ADD_OP          reduce using rule 15 (expression -> expression ADD_OP expression .)
-    IS              reduce using rule 15 (expression -> expression ADD_OP expression .)
-    LOG             reduce using rule 15 (expression -> expression ADD_OP expression .)
-    IDENTIFIER      reduce using rule 15 (expression -> expression ADD_OP expression .)
-    FOR             reduce using rule 15 (expression -> expression ADD_OP expression .)
-    IF              reduce using rule 15 (expression -> expression ADD_OP expression .)
-    @               reduce using rule 15 (expression -> expression ADD_OP expression .)
-    KEYFRAMES       reduce using rule 15 (expression -> expression ADD_OP expression .)
-    $end            reduce using rule 15 (expression -> expression ADD_OP expression .)
-    }               reduce using rule 15 (expression -> expression ADD_OP expression .)
-    {               reduce using rule 15 (expression -> expression ADD_OP expression .)
-    )               reduce using rule 15 (expression -> expression ADD_OP expression .)
-    MUL_OP          shift and go to state 31
-
-  ! MUL_OP          [ reduce using rule 15 (expression -> expression ADD_OP expression .) ]
-  ! ADD_OP          [ shift and go to state 32 ]
-  ! IS              [ shift and go to state 30 ]
-
-
-state 41
-
-    (9) condition -> IF expression { programme . }
-
-    }               shift and go to state 43
-
-
-state 42
-
-    (10) structure -> FOR NUMBER TO NUMBER BY . NUMBER { programme }
-
-    NUMBER          shift and go to state 44
-
-
-state 43
-
-    (9) condition -> IF expression { programme } .
-
-    LOG             reduce using rule 9 (condition -> IF expression { programme } .)
-    IDENTIFIER      reduce using rule 9 (condition -> IF expression { programme } .)
-    FOR             reduce using rule 9 (condition -> IF expression { programme } .)
-    IF              reduce using rule 9 (condition -> IF expression { programme } .)
-    @               reduce using rule 9 (condition -> IF expression { programme } .)
-    KEYFRAMES       reduce using rule 9 (condition -> IF expression { programme } .)
-    $end            reduce using rule 9 (condition -> IF expression { programme } .)
-    }               reduce using rule 9 (condition -> IF expression { programme } .)
-
-
-state 44
-
-    (10) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
-
-    {               shift and go to state 45
-
-
-state 45
-
-    (10) structure -> FOR NUMBER TO NUMBER BY NUMBER { . programme }
+    (11) condition -> IF expression { . programme }
     (1) programme -> . statement
     (2) programme -> . statement programme
     (3) statement -> . assignation
@@ -828,51 +706,493 @@ state 45
     (5) statement -> . condition
     (6) statement -> . css
     (7) statement -> . keyframes
-    (8) statement -> . LOG expression
-    (23) assignation -> . IDENTIFIER : expression
-    (10) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (9) condition -> . IF expression { programme }
-    (11) css -> . @ STRING
-    (12) keyframes -> . KEYFRAMES { programme }
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
 
-    LOG             shift and go to state 5
-    IDENTIFIER      shift and go to state 11
-    FOR             shift and go to state 4
-    IF              shift and go to state 6
-    @               shift and go to state 1
-    KEYFRAMES       shift and go to state 2
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
 
-    assignation                    shift and go to state 3
-    condition                      shift and go to state 7
-    keyframes                      shift and go to state 8
-    css                            shift and go to state 9
-    statement                      shift and go to state 10
-    structure                      shift and go to state 12
-    programme                      shift and go to state 46
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    condition                      shift and go to state 12
+    statement                      shift and go to state 7
+    css                            shift and go to state 8
+    structure                      shift and go to state 6
+    programme                      shift and go to state 50
+
+state 41
+
+    (25) assignation -> IDENTIFIER : expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
+
+    LOG             reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    IDENTIFIER      reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    FOR             reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    IF              reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    @               reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    KEYFRAMES       reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    ANIMATION       reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    FRAME           reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    }               reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    $end            reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    )               reduce using rule 25 (assignation -> IDENTIFIER : expression .)
+    ADD_OP          shift and go to state 36
+    MUL_OP          shift and go to state 35
+    IS              shift and go to state 34
+
+
+state 42
+
+    (14) keyframes -> KEYFRAMES ( STRING . ) { programme }
+
+    )               shift and go to state 51
+
+
+state 43
+
+    (23) expression -> ( expression ) .
+
+    ADD_OP          reduce using rule 23 (expression -> ( expression ) .)
+    MUL_OP          reduce using rule 23 (expression -> ( expression ) .)
+    IS              reduce using rule 23 (expression -> ( expression ) .)
+    LOG             reduce using rule 23 (expression -> ( expression ) .)
+    IDENTIFIER      reduce using rule 23 (expression -> ( expression ) .)
+    FOR             reduce using rule 23 (expression -> ( expression ) .)
+    IF              reduce using rule 23 (expression -> ( expression ) .)
+    @               reduce using rule 23 (expression -> ( expression ) .)
+    KEYFRAMES       reduce using rule 23 (expression -> ( expression ) .)
+    ANIMATION       reduce using rule 23 (expression -> ( expression ) .)
+    FRAME           reduce using rule 23 (expression -> ( expression ) .)
+    $end            reduce using rule 23 (expression -> ( expression ) .)
+    }               reduce using rule 23 (expression -> ( expression ) .)
+    {               reduce using rule 23 (expression -> ( expression ) .)
+    )               reduce using rule 23 (expression -> ( expression ) .)
+
+
+state 44
+
+    (19) expression -> expression IS expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
+
+  ! shift/reduce conflict for ADD_OP resolved as shift
+  ! shift/reduce conflict for MUL_OP resolved as shift
+  ! shift/reduce conflict for IS resolved as shift
+    LOG             reduce using rule 19 (expression -> expression IS expression .)
+    IDENTIFIER      reduce using rule 19 (expression -> expression IS expression .)
+    FOR             reduce using rule 19 (expression -> expression IS expression .)
+    IF              reduce using rule 19 (expression -> expression IS expression .)
+    @               reduce using rule 19 (expression -> expression IS expression .)
+    KEYFRAMES       reduce using rule 19 (expression -> expression IS expression .)
+    ANIMATION       reduce using rule 19 (expression -> expression IS expression .)
+    FRAME           reduce using rule 19 (expression -> expression IS expression .)
+    $end            reduce using rule 19 (expression -> expression IS expression .)
+    }               reduce using rule 19 (expression -> expression IS expression .)
+    {               reduce using rule 19 (expression -> expression IS expression .)
+    )               reduce using rule 19 (expression -> expression IS expression .)
+    ADD_OP          shift and go to state 36
+    MUL_OP          shift and go to state 35
+    IS              shift and go to state 34
+
+  ! ADD_OP          [ reduce using rule 19 (expression -> expression IS expression .) ]
+  ! MUL_OP          [ reduce using rule 19 (expression -> expression IS expression .) ]
+  ! IS              [ reduce using rule 19 (expression -> expression IS expression .) ]
+
+
+state 45
+
+    (18) expression -> expression MUL_OP expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
+
+    ADD_OP          reduce using rule 18 (expression -> expression MUL_OP expression .)
+    MUL_OP          reduce using rule 18 (expression -> expression MUL_OP expression .)
+    IS              reduce using rule 18 (expression -> expression MUL_OP expression .)
+    LOG             reduce using rule 18 (expression -> expression MUL_OP expression .)
+    IDENTIFIER      reduce using rule 18 (expression -> expression MUL_OP expression .)
+    FOR             reduce using rule 18 (expression -> expression MUL_OP expression .)
+    IF              reduce using rule 18 (expression -> expression MUL_OP expression .)
+    @               reduce using rule 18 (expression -> expression MUL_OP expression .)
+    KEYFRAMES       reduce using rule 18 (expression -> expression MUL_OP expression .)
+    ANIMATION       reduce using rule 18 (expression -> expression MUL_OP expression .)
+    FRAME           reduce using rule 18 (expression -> expression MUL_OP expression .)
+    $end            reduce using rule 18 (expression -> expression MUL_OP expression .)
+    }               reduce using rule 18 (expression -> expression MUL_OP expression .)
+    {               reduce using rule 18 (expression -> expression MUL_OP expression .)
+    )               reduce using rule 18 (expression -> expression MUL_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 36 ]
+  ! MUL_OP          [ shift and go to state 35 ]
+  ! IS              [ shift and go to state 34 ]
+
 
 state 46
 
-    (10) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
+    (17) expression -> expression ADD_OP expression .
+    (17) expression -> expression . ADD_OP expression
+    (18) expression -> expression . MUL_OP expression
+    (19) expression -> expression . IS expression
 
-    }               shift and go to state 47
+    ADD_OP          reduce using rule 17 (expression -> expression ADD_OP expression .)
+    IS              reduce using rule 17 (expression -> expression ADD_OP expression .)
+    LOG             reduce using rule 17 (expression -> expression ADD_OP expression .)
+    IDENTIFIER      reduce using rule 17 (expression -> expression ADD_OP expression .)
+    FOR             reduce using rule 17 (expression -> expression ADD_OP expression .)
+    IF              reduce using rule 17 (expression -> expression ADD_OP expression .)
+    @               reduce using rule 17 (expression -> expression ADD_OP expression .)
+    KEYFRAMES       reduce using rule 17 (expression -> expression ADD_OP expression .)
+    ANIMATION       reduce using rule 17 (expression -> expression ADD_OP expression .)
+    FRAME           reduce using rule 17 (expression -> expression ADD_OP expression .)
+    $end            reduce using rule 17 (expression -> expression ADD_OP expression .)
+    }               reduce using rule 17 (expression -> expression ADD_OP expression .)
+    {               reduce using rule 17 (expression -> expression ADD_OP expression .)
+    )               reduce using rule 17 (expression -> expression ADD_OP expression .)
+    MUL_OP          shift and go to state 35
+
+  ! MUL_OP          [ reduce using rule 17 (expression -> expression ADD_OP expression .) ]
+  ! ADD_OP          [ shift and go to state 36 ]
+  ! IS              [ shift and go to state 34 ]
 
 
 state 47
 
-    (10) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
+    (16) frame -> FRAME ( assignation ) . { programme }
 
-    LOG             reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    IDENTIFIER      reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    FOR             reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    IF              reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    @               reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    KEYFRAMES       reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    $end            reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
-    }               reduce using rule 10 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    {               shift and go to state 52
+
+
+state 48
+
+    (12) structure -> FOR NUMBER TO NUMBER . BY NUMBER { programme }
+
+    BY              shift and go to state 53
+
+
+state 49
+
+    (15) animation -> ANIMATION ( assignation ) . { programme }
+
+    {               shift and go to state 54
+
+
+state 50
+
+    (11) condition -> IF expression { programme . }
+
+    }               shift and go to state 55
+
+
+state 51
+
+    (14) keyframes -> KEYFRAMES ( STRING ) . { programme }
+
+    {               shift and go to state 56
+
+
+state 52
+
+    (16) frame -> FRAME ( assignation ) { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
+
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
+
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 57
+
+state 53
+
+    (12) structure -> FOR NUMBER TO NUMBER BY . NUMBER { programme }
+
+    NUMBER          shift and go to state 58
+
+
+state 54
+
+    (15) animation -> ANIMATION ( assignation ) { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
+
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
+
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 59
+
+state 55
+
+    (11) condition -> IF expression { programme } .
+
+    LOG             reduce using rule 11 (condition -> IF expression { programme } .)
+    IDENTIFIER      reduce using rule 11 (condition -> IF expression { programme } .)
+    FOR             reduce using rule 11 (condition -> IF expression { programme } .)
+    IF              reduce using rule 11 (condition -> IF expression { programme } .)
+    @               reduce using rule 11 (condition -> IF expression { programme } .)
+    KEYFRAMES       reduce using rule 11 (condition -> IF expression { programme } .)
+    ANIMATION       reduce using rule 11 (condition -> IF expression { programme } .)
+    FRAME           reduce using rule 11 (condition -> IF expression { programme } .)
+    }               reduce using rule 11 (condition -> IF expression { programme } .)
+    $end            reduce using rule 11 (condition -> IF expression { programme } .)
+
+
+state 56
+
+    (14) keyframes -> KEYFRAMES ( STRING ) { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
+
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
+
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 60
+
+state 57
+
+    (16) frame -> FRAME ( assignation ) { programme . }
+
+    }               shift and go to state 61
+
+
+state 58
+
+    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
+
+    {               shift and go to state 62
+
+
+state 59
+
+    (15) animation -> ANIMATION ( assignation ) { programme . }
+
+    }               shift and go to state 63
+
+
+state 60
+
+    (14) keyframes -> KEYFRAMES ( STRING ) { programme . }
+
+    }               shift and go to state 64
+
+
+state 61
+
+    (16) frame -> FRAME ( assignation ) { programme } .
+
+    LOG             reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    IDENTIFIER      reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    FOR             reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    IF              reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    @               reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    KEYFRAMES       reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    ANIMATION       reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    FRAME           reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    $end            reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+    }               reduce using rule 16 (frame -> FRAME ( assignation ) { programme } .)
+
+
+state 62
+
+    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (15) animation -> . ANIMATION ( assignation ) { programme }
+    (16) frame -> . FRAME ( assignation ) { programme }
+
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
+
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 65
+
+state 63
+
+    (15) animation -> ANIMATION ( assignation ) { programme } .
+
+    LOG             reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    IDENTIFIER      reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    FOR             reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    IF              reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    @               reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    KEYFRAMES       reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    ANIMATION       reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    FRAME           reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    }               reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+    $end            reduce using rule 15 (animation -> ANIMATION ( assignation ) { programme } .)
+
+
+state 64
+
+    (14) keyframes -> KEYFRAMES ( STRING ) { programme } .
+
+    LOG             reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    IDENTIFIER      reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    FOR             reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    IF              reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    @               reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    KEYFRAMES       reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    ANIMATION       reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    FRAME           reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    $end            reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+    }               reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
+
+
+state 65
+
+    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
+
+    }               shift and go to state 66
+
+
+state 66
+
+    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
+
+    LOG             reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    IDENTIFIER      reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    FOR             reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    IF              reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    @               reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    KEYFRAMES       reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    ANIMATION       reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    FRAME           reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    }               reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
+    $end            reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ADD_OP in state 38 resolved as shift
-WARNING: shift/reduce conflict for MUL_OP in state 38 resolved as shift
-WARNING: shift/reduce conflict for IS in state 38 resolved as shift
+WARNING: shift/reduce conflict for ADD_OP in state 44 resolved as shift
+WARNING: shift/reduce conflict for MUL_OP in state 44 resolved as shift
+WARNING: shift/reduce conflict for IS in state 44 resolved as shift
