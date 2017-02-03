@@ -125,6 +125,7 @@ class CssNode(Node):
     type = 'CSS'
 
 
+
 class ConditionNode(Node):
     type = 'condition'
 

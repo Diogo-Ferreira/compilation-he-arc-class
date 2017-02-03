@@ -8,7 +8,8 @@ operations = {
     '+': lambda x, y: x + y,
     '-': lambda x, y: x - y,
     '*': lambda x, y: x * y,
-    '/': lambda x, y: x / y
+    '/': lambda x, y: x / y,
+    '%': lambda x, y: int(x) % int(y),
 }
 
 vars = {}
@@ -55,8 +56,11 @@ def execute(self):
                 return self.tok.replace("\"", "")
             else:
                 print('*** Error: variable %s undefined ! ' % self.tok)
-    return self.tok
 
+    if not isinstance(self.tok, AST.TokenNode):
+        return self.tok
+    else:
+        return self.tok.execute()
 
 @addToClass(AST.OpNode)
 def execute(self):
@@ -89,7 +93,7 @@ def execute(self):
         selector = last[2]
 
         if selector not in css_output["selectors"]:
-            css_output["selectors"][selector] = ["animation-name: {0};".format(name)]
+            css_output["selectors"][selector] = ["animation-name: {0}".format(name)]
         css_output["selectors"][selector].append(css)
 
     elif last[0] == "frame":
@@ -161,7 +165,8 @@ def execute(self):
 
 @addToClass(AST.FrameNode)
 def execute(self):
-    value = self.children[0].children[1].tok
+
+    value = int(self.children[0].children[1].execute())
     css_context.append(
         ("frame", value, css_context[-1][1])
     )

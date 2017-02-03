@@ -14,21 +14,24 @@ reserved_words = (
 )
 
 tokens = (
-             'NUMBER',
-             'ADD_OP',
-             'MUL_OP',
-             'FUNCTION',
-             'IDENTIFIER',
-             'STRING',
-             'MOD'
-         ) + tuple(map(lambda s: s.upper(), reserved_words))
+     'NUMBER',
+     'ADD_OP',
+     'MUL_OP',
+     'FUNCTION',
+     'IDENTIFIER',
+     'STRING',
+     'MOD'
+ ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 literals = '();:${}@,.%"'
 
 
 def t_STRING(t):
     r'"(.*?)"'
+    # removes quotes from strings
+    t.value = t.value.replace("\"", "")
     return t
+
 
 
 def t_ADD_OP(t):

@@ -7,16 +7,26 @@ animation("example","div") {
     @ "background-color:red"
     @ "animation-duration:4s"
 
+
     keyframes{
+        for 0 to 100 by 25 {
 
-        frame(0){
-            @ "background-color:red"
+            cpt: 0
+            cond: ix % 2
+
+            if cond is 0 {
+                cpt: 1
+            }
+
+            frame(ix){
+                log cpt
+            }
         }
-
-        frame(100){
-            @ "background-color:yellow"
-        }
-
     }
-
 }
+
+
+
+
+
+@ "background-color:black"

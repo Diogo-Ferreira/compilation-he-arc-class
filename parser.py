@@ -54,7 +54,6 @@ def p_css(p):
     p[0] = AST.CssNode(AST.TokenNode(p[2]))
 
 
-
 def p_keyframes(p):
     '''keyframes : KEYFRAMES '{' programme '}' '''
     p[0] = AST.KeyframesNode(p[3])
@@ -70,13 +69,14 @@ def p_animation(p):
 
 
 def p_frame(p):
-    '''frame : FRAME '(' NUMBER ')' '{' programme '}' '''
+    '''frame : FRAME '(' expression ')' '{' programme '}' '''
     p[0] = AST.FrameNode([AST.AssignNode([AST.TokenNode("value"), AST.TokenNode(p[3])]), p[6]])
 
 
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
-            | expression MUL_OP expression'''
+            | expression MUL_OP expression
+            | expression MOD expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 
@@ -92,9 +92,11 @@ def p_expression_num_or_var(p):
     p[0] = AST.TokenNode(p[1])
 
 
+
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
+
 
 """
 def p_function(p):

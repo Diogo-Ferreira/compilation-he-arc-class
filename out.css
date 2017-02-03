@@ -1,0 +1,10 @@
+body {
+	background-color:black;
+}
+div {
+	animation-name: example;
+	width:100px;
+	height:100px;
+	background-color:red;
+	animation-duration:4s;
+}

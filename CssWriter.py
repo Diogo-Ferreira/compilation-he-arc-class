@@ -10,7 +10,9 @@ class CssWriter:
         :return:
         """
 
-        return "%s {\n\t%s;\n}\n" % (selector, ";\n\t".join(block_rules))
+        block_rules = ";\n\t".join(block_rules) + ";" if len(block_rules) else ""
+
+        return "%s {\n\t%s\n}\n" % (selector, block_rules)
 
     def _write_keyframe(self, keyframe_name, keyframe_rules):
         """
@@ -20,7 +22,7 @@ class CssWriter:
         :return:
         """
 
-        rules = ["%s {\n\t\t%s;\n\t}" % (perc, rule) for perc, rules in keyframe_rules.iteritems() for rule in rules]
+        rules = ["%s%% {\n\t\t%s;\n\t}" % (int(perc), rule) for perc, rules in keyframe_rules.iteritems() for rule in rules]
 
         return "@keyframes %s {\n\t%s\n}\n" % (keyframe_name, "\n\t".join(rules))
 
@@ -31,4 +33,8 @@ class CssWriter:
         for name, rules in context["keyframes"].iteritems():
             self.content += self._write_keyframe(name, rules)
 
-        print(self.content)
+        self._write_css_file()
+
+    def _write_css_file(self):
+        with open("out.css", "w") as f:
+            f.write(self.content)
