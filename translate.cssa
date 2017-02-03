@@ -1,0 +1,43 @@
+
+@ "background-color:black"
+
+animation("translate","#mydiv") {
+
+    @ "width:100px"
+    @ "height:100px"
+    @ "animation-duration:10s"
+    @ "animation-direction:alternate"
+    @ "animation-iteration-count: infinite"
+    @ "animation-timing-function: ease-in-out"
+
+    keyframes{
+        for 0 to 100 by 10 {
+
+            redFactor: 0
+            blueFactor: 0
+            cond: ix % 20
+
+            if cond is 0 {
+                redFactor: 255
+                blueFactor: 0
+            }
+            if cond is 10 {
+                redFactor: 0
+                blueFactor: 255
+            }
+
+            frame(ix){
+                @ "left: $ixpx"
+                @ "background-color: rgb($redFactor, 0, $blueFactor)"
+            }
+        }
+    }
+}
+
+animation("translate", ".myclass") {
+    @ "width:200px"
+    @ "height:200px"
+    @ "animation: translate 10s ease-in-out 2s infinite alternate"
+}
+
+

@@ -1,6 +1,8 @@
 
 
-animation("example","div") {
+@ "background-color:black"
+
+animation("example","#mydiv") {
 
     @ "width:100px"
     @ "height:100px"
@@ -19,7 +21,8 @@ animation("example","div") {
             }
 
             frame(ix){
-                @ "background: rgb($cpt,0,0)"
+                value: 3*ix
+                @ "background-color: rgba($value,0,0,255)"
             }
         }
     }
@@ -28,5 +31,3 @@ animation("example","div") {
 
 
 
-
-@ "background-color:black"

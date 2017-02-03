@@ -22,7 +22,7 @@ class CssWriter:
         :return:
         """
 
-        rules = ["%s%% {\n\t\t%s;\n\t}" % (int(perc), rule) for perc, rules in keyframe_rules.iteritems() for rule in rules]
+        rules = ["%s%% {\n\t\t%s;\n\t}" % (int(perc), ';\n\t\t'.join(rules)) for perc, rules in keyframe_rules.iteritems() ]
 
         return "@keyframes %s {\n\t%s\n}\n" % (keyframe_name, "\n\t".join(rules))
 
@@ -36,5 +36,5 @@ class CssWriter:
         self._write_css_file()
 
     def _write_css_file(self):
-        with open("out.css", "w") as f:
+        with open("translate.css", "w") as f:
             f.write(self.content)

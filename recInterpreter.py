@@ -14,12 +14,14 @@ operations = {
 }
 
 vars = {}
+
+
 """
 css_output = {
     "selectors": {
         "#tata" : [],
         "body" : [],
-        ".put3": []
+        ".test3": []
     },
     "keyframes": {
         "anim1":{
@@ -93,7 +95,12 @@ def execute(self):
     extracted_vars = extract(css, vars)
 
     for var in extracted_vars:
-        css = css.replace("$%s" % var, str(vars[var]))
+        clean_var = vars[var]
+
+        if isinstance(clean_var,float):
+            clean_var = int(clean_var)
+
+        css = css.replace("$%s" % var, str(clean_var))
 
     if last[0] == "animation":
         name = last[1]
@@ -123,7 +130,7 @@ def execute(self):
 
 @addToClass(AST.ConditionNode)
 def execute(self):
-    if (self.children[0].execute()):
+    if self.children[0].execute():
         self.children[1].execute()
 
 
