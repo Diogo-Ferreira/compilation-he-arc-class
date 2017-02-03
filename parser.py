@@ -56,8 +56,8 @@ def p_css(p):
 
 
 def p_keyframes(p):
-    '''keyframes : KEYFRAMES '(' STRING ')' '{' programme '}' '''
-    p[0] = AST.KeyframesNode([AST.AssignNode([AST.TokenNode("name"), AST.TokenNode(p[3])]), p[6]])
+    '''keyframes : KEYFRAMES '{' programme '}' '''
+    p[0] = AST.KeyframesNode(p[3])
 
 
 def p_animation(p):

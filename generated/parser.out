@@ -22,7 +22,7 @@ Rule 10    statement -> LOG expression
 Rule 11    condition -> IF expression { programme }
 Rule 12    structure -> FOR NUMBER TO NUMBER BY NUMBER { programme }
 Rule 13    css -> @ STRING
-Rule 14    keyframes -> KEYFRAMES ( STRING ) { programme }
+Rule 14    keyframes -> KEYFRAMES { programme }
 Rule 15    animation -> ANIMATION ( STRING , STRING ) { programme }
 Rule 16    frame -> FRAME ( NUMBER ) { programme }
 Rule 17    expression -> expression ADD_OP expression
@@ -37,8 +37,8 @@ Rule 25    assignation -> IDENTIFIER : expression
 
 Terminals, with rules where they appear
 
-(                    : 14 15 16 23
-)                    : 14 15 16 23
+(                    : 15 16 23
+)                    : 15 16 23
 ,                    : 15
 :                    : 25
 @                    : 13
@@ -57,7 +57,7 @@ LOG                  : 10
 MOD                  : 
 MUL_OP               : 18
 NUMBER               : 12 12 12 16 20
-STRING               : 13 14 15 15 22
+STRING               : 13 15 15 22
 TO                   : 12
 error                : 
 {                    : 11 12 14 15 16
@@ -95,7 +95,7 @@ state 0
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -150,8 +150,8 @@ state 2
     KEYFRAMES       reduce using rule 9 (statement -> frame .)
     ANIMATION       reduce using rule 9 (statement -> frame .)
     FRAME           reduce using rule 9 (statement -> frame .)
-    $end            reduce using rule 9 (statement -> frame .)
     }               reduce using rule 9 (statement -> frame .)
+    $end            reduce using rule 9 (statement -> frame .)
 
 
 state 3
@@ -166,8 +166,8 @@ state 3
     KEYFRAMES       reduce using rule 7 (statement -> keyframes .)
     ANIMATION       reduce using rule 7 (statement -> keyframes .)
     FRAME           reduce using rule 7 (statement -> keyframes .)
-    $end            reduce using rule 7 (statement -> keyframes .)
     }               reduce using rule 7 (statement -> keyframes .)
+    $end            reduce using rule 7 (statement -> keyframes .)
 
 
 state 4
@@ -189,8 +189,8 @@ state 5
     KEYFRAMES       reduce using rule 8 (statement -> animation .)
     ANIMATION       reduce using rule 8 (statement -> animation .)
     FRAME           reduce using rule 8 (statement -> animation .)
-    $end            reduce using rule 8 (statement -> animation .)
     }               reduce using rule 8 (statement -> animation .)
+    $end            reduce using rule 8 (statement -> animation .)
 
 
 state 6
@@ -205,8 +205,8 @@ state 6
     KEYFRAMES       reduce using rule 4 (statement -> structure .)
     ANIMATION       reduce using rule 4 (statement -> structure .)
     FRAME           reduce using rule 4 (statement -> structure .)
-    $end            reduce using rule 4 (statement -> structure .)
     }               reduce using rule 4 (statement -> structure .)
+    $end            reduce using rule 4 (statement -> structure .)
 
 
 state 7
@@ -227,7 +227,7 @@ state 7
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -264,8 +264,8 @@ state 8
     KEYFRAMES       reduce using rule 6 (statement -> css .)
     ANIMATION       reduce using rule 6 (statement -> css .)
     FRAME           reduce using rule 6 (statement -> css .)
-    $end            reduce using rule 6 (statement -> css .)
     }               reduce using rule 6 (statement -> css .)
+    $end            reduce using rule 6 (statement -> css .)
 
 
 state 9
@@ -301,8 +301,8 @@ state 12
     KEYFRAMES       reduce using rule 5 (statement -> condition .)
     ANIMATION       reduce using rule 5 (statement -> condition .)
     FRAME           reduce using rule 5 (statement -> condition .)
-    $end            reduce using rule 5 (statement -> condition .)
     }               reduce using rule 5 (statement -> condition .)
+    $end            reduce using rule 5 (statement -> condition .)
 
 
 state 13
@@ -344,15 +344,15 @@ state 15
     KEYFRAMES       reduce using rule 3 (statement -> assignation .)
     ANIMATION       reduce using rule 3 (statement -> assignation .)
     FRAME           reduce using rule 3 (statement -> assignation .)
-    $end            reduce using rule 3 (statement -> assignation .)
     }               reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
 
 
 state 16
 
-    (14) keyframes -> KEYFRAMES . ( STRING ) { programme }
+    (14) keyframes -> KEYFRAMES . { programme }
 
-    (               shift and go to state 31
+    {               shift and go to state 31
 
 
 state 17
@@ -458,8 +458,8 @@ state 22
     KEYFRAMES       reduce using rule 10 (statement -> LOG expression .)
     ANIMATION       reduce using rule 10 (statement -> LOG expression .)
     FRAME           reduce using rule 10 (statement -> LOG expression .)
-    $end            reduce using rule 10 (statement -> LOG expression .)
     }               reduce using rule 10 (statement -> LOG expression .)
+    $end            reduce using rule 10 (statement -> LOG expression .)
     ADD_OP          shift and go to state 36
     MUL_OP          shift and go to state 35
     IS              shift and go to state 34
@@ -566,10 +566,43 @@ state 30
 
 state 31
 
-    (14) keyframes -> KEYFRAMES ( . STRING ) { programme }
+    (14) keyframes -> KEYFRAMES { . programme }
+    (1) programme -> . statement
+    (2) programme -> . statement programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . condition
+    (6) statement -> . css
+    (7) statement -> . keyframes
+    (8) statement -> . animation
+    (9) statement -> . frame
+    (10) statement -> . LOG expression
+    (25) assignation -> . IDENTIFIER : expression
+    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
+    (11) condition -> . IF expression { programme }
+    (13) css -> . @ STRING
+    (14) keyframes -> . KEYFRAMES { programme }
+    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
+    (16) frame -> . FRAME ( NUMBER ) { programme }
 
-    STRING          shift and go to state 42
+    LOG             shift and go to state 1
+    IDENTIFIER      shift and go to state 14
+    FOR             shift and go to state 10
+    IF              shift and go to state 13
+    @               shift and go to state 9
+    KEYFRAMES       shift and go to state 16
+    ANIMATION       shift and go to state 11
+    FRAME           shift and go to state 4
 
+    assignation                    shift and go to state 15
+    frame                          shift and go to state 2
+    condition                      shift and go to state 12
+    keyframes                      shift and go to state 3
+    animation                      shift and go to state 5
+    css                            shift and go to state 8
+    statement                      shift and go to state 7
+    structure                      shift and go to state 6
+    programme                      shift and go to state 42
 
 state 32
 
@@ -710,7 +743,7 @@ state 40
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -757,9 +790,9 @@ state 41
 
 state 42
 
-    (14) keyframes -> KEYFRAMES ( STRING . ) { programme }
+    (14) keyframes -> KEYFRAMES { programme . }
 
-    )               shift and go to state 51
+    }               shift and go to state 51
 
 
 state 43
@@ -900,9 +933,18 @@ state 50
 
 state 51
 
-    (14) keyframes -> KEYFRAMES ( STRING ) . { programme }
+    (14) keyframes -> KEYFRAMES { programme } .
 
-    {               shift and go to state 56
+    LOG             reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    IDENTIFIER      reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    FOR             reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    IF              reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    @               reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    KEYFRAMES       reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    ANIMATION       reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    FRAME           reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    $end            reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
+    }               reduce using rule 14 (keyframes -> KEYFRAMES { programme } .)
 
 
 state 52
@@ -922,7 +964,7 @@ state 52
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -943,20 +985,20 @@ state 52
     css                            shift and go to state 8
     statement                      shift and go to state 7
     structure                      shift and go to state 6
-    programme                      shift and go to state 57
+    programme                      shift and go to state 56
 
 state 53
 
     (12) structure -> FOR NUMBER TO NUMBER BY . NUMBER { programme }
 
-    NUMBER          shift and go to state 58
+    NUMBER          shift and go to state 57
 
 
 state 54
 
     (15) animation -> ANIMATION ( STRING , STRING . ) { programme }
 
-    )               shift and go to state 59
+    )               shift and go to state 58
 
 
 state 55
@@ -977,73 +1019,26 @@ state 55
 
 state 56
 
-    (14) keyframes -> KEYFRAMES ( STRING ) { . programme }
-    (1) programme -> . statement
-    (2) programme -> . statement programme
-    (3) statement -> . assignation
-    (4) statement -> . structure
-    (5) statement -> . condition
-    (6) statement -> . css
-    (7) statement -> . keyframes
-    (8) statement -> . animation
-    (9) statement -> . frame
-    (10) statement -> . LOG expression
-    (25) assignation -> . IDENTIFIER : expression
-    (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
-    (11) condition -> . IF expression { programme }
-    (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
-    (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
-    (16) frame -> . FRAME ( NUMBER ) { programme }
+    (16) frame -> FRAME ( NUMBER ) { programme . }
 
-    LOG             shift and go to state 1
-    IDENTIFIER      shift and go to state 14
-    FOR             shift and go to state 10
-    IF              shift and go to state 13
-    @               shift and go to state 9
-    KEYFRAMES       shift and go to state 16
-    ANIMATION       shift and go to state 11
-    FRAME           shift and go to state 4
+    }               shift and go to state 59
 
-    assignation                    shift and go to state 15
-    frame                          shift and go to state 2
-    condition                      shift and go to state 12
-    keyframes                      shift and go to state 3
-    animation                      shift and go to state 5
-    css                            shift and go to state 8
-    statement                      shift and go to state 7
-    structure                      shift and go to state 6
-    programme                      shift and go to state 60
 
 state 57
 
-    (16) frame -> FRAME ( NUMBER ) { programme . }
+    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
 
-    }               shift and go to state 61
+    {               shift and go to state 60
 
 
 state 58
 
-    (12) structure -> FOR NUMBER TO NUMBER BY NUMBER . { programme }
+    (15) animation -> ANIMATION ( STRING , STRING ) . { programme }
 
-    {               shift and go to state 62
+    {               shift and go to state 61
 
 
 state 59
-
-    (15) animation -> ANIMATION ( STRING , STRING ) . { programme }
-
-    {               shift and go to state 63
-
-
-state 60
-
-    (14) keyframes -> KEYFRAMES ( STRING ) { programme . }
-
-    }               shift and go to state 64
-
-
-state 61
 
     (16) frame -> FRAME ( NUMBER ) { programme } .
 
@@ -1055,11 +1050,11 @@ state 61
     KEYFRAMES       reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
     ANIMATION       reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
     FRAME           reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
-    $end            reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
     }               reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
+    $end            reduce using rule 16 (frame -> FRAME ( NUMBER ) { programme } .)
 
 
-state 62
+state 60
 
     (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { . programme }
     (1) programme -> . statement
@@ -1076,7 +1071,7 @@ state 62
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -1097,9 +1092,9 @@ state 62
     css                            shift and go to state 8
     statement                      shift and go to state 7
     structure                      shift and go to state 6
-    programme                      shift and go to state 65
+    programme                      shift and go to state 62
 
-state 63
+state 61
 
     (15) animation -> ANIMATION ( STRING , STRING ) { . programme }
     (1) programme -> . statement
@@ -1116,7 +1111,7 @@ state 63
     (12) structure -> . FOR NUMBER TO NUMBER BY NUMBER { programme }
     (11) condition -> . IF expression { programme }
     (13) css -> . @ STRING
-    (14) keyframes -> . KEYFRAMES ( STRING ) { programme }
+    (14) keyframes -> . KEYFRAMES { programme }
     (15) animation -> . ANIMATION ( STRING , STRING ) { programme }
     (16) frame -> . FRAME ( NUMBER ) { programme }
 
@@ -1137,39 +1132,23 @@ state 63
     css                            shift and go to state 8
     statement                      shift and go to state 7
     structure                      shift and go to state 6
-    programme                      shift and go to state 66
+    programme                      shift and go to state 63
 
-state 64
-
-    (14) keyframes -> KEYFRAMES ( STRING ) { programme } .
-
-    LOG             reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    IDENTIFIER      reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    FOR             reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    IF              reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    @               reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    KEYFRAMES       reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    ANIMATION       reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    FRAME           reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    $end            reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-    }               reduce using rule 14 (keyframes -> KEYFRAMES ( STRING ) { programme } .)
-
-
-state 65
+state 62
 
     (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme . }
 
-    }               shift and go to state 67
+    }               shift and go to state 64
 
 
-state 66
+state 63
 
     (15) animation -> ANIMATION ( STRING , STRING ) { programme . }
 
-    }               shift and go to state 68
+    }               shift and go to state 65
 
 
-state 67
+state 64
 
     (12) structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .
 
@@ -1185,7 +1164,7 @@ state 67
     $end            reduce using rule 12 (structure -> FOR NUMBER TO NUMBER BY NUMBER { programme } .)
 
 
-state 68
+state 65
 
     (15) animation -> ANIMATION ( STRING , STRING ) { programme } .
 

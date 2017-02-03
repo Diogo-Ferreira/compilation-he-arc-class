@@ -2,6 +2,8 @@ import AST
 from AST import addToClass
 from functools import reduce
 
+from CssWriter import CssWriter
+
 operations = {
     '+': lambda x, y: x + y,
     '-': lambda x, y: x - y,
@@ -10,12 +12,30 @@ operations = {
 }
 
 vars = {}
-pile = []
+"""
+css_output = {
+    "selectors": {
+        "#tata" : [],
+        "body" : [],
+        ".put3": []
+    },
+    "keyframes": {
+        "anim1":{
+            "30%": ["color:red;", "background-color: 0000"],
+        },
+        "anim2":[]
+    }
+}
+"""
 
+css_output = {
+    "selectors": {
+        "body": []
+    },
+    "keyframes": {}
+}
 
-css_output = ""
-
-css_context = [("selector","body")]
+css_context = [("selector", "body")]
 
 
 @addToClass(AST.ProgramNode)
@@ -60,12 +80,32 @@ def execute(self):
 
 @addToClass(AST.CssNode)
 def execute(self):
-
     last = css_context[-1]
 
     css = self.children[0].tok
 
-    print("This will be outputed in %s with the value %s" % (last,css))
+    if last[0] == "animation":
+        name = last[1]
+        selector = last[2]
+
+        if selector not in css_output["selectors"]:
+            css_output["selectors"][selector] = ["animation-name: {0};".format(name)]
+        css_output["selectors"][selector].append(css)
+
+    elif last[0] == "frame":
+        value = last[1]
+        name = last[2][1]
+
+        if name not in css_output["keyframes"]:
+            css_output["keyframes"][name] = {}
+        if value not in css_output["keyframes"][name]:
+            css_output["keyframes"][name][value] = []
+        css_output["keyframes"][name][value].append(css)
+
+    elif last[1] == "body":
+        css_output["selectors"]["body"].append(css)
+
+    print("This will be output in %s with the value %s" % (last, css))
 
     return
 
@@ -95,12 +135,15 @@ def execute(self):
 
 @addToClass(AST.KeyframesNode)
 def execute(self):
-    name = self.children[0].children[1].tok
+    name = css_context[-1]
+
     css_context.append(
         ("keyframes", name)
     )
-    res = self.children[1].execute()
+    res = self.children[0].execute()
+
     css_context.pop()
+
     return res
 
 
@@ -120,7 +163,7 @@ def execute(self):
 def execute(self):
     value = self.children[0].children[1].tok
     css_context.append(
-        ("frame", value)
+        ("frame", value, css_context[-1][1])
     )
     res = self.children[1].execute()
     css_context.pop()
@@ -134,3 +177,5 @@ if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     ast.execute()
+    writer = CssWriter()
+    writer.write_context(css_output)

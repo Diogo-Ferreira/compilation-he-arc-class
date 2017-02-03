@@ -1,16 +1,22 @@
 
 
-animation("anim1","div") {
+animation("example","div") {
 
-    keyframes("myname2"){
-        @ "test2"
+    @ "width:100px"
+    @ "height:100px"
+    @ "background-color:red"
+    @ "animation-duration:4s"
 
-        frame(5){
-            @ "test3"
+    keyframes{
+
+        frame(0){
+            @ "background-color:red"
         }
+
+        frame(100){
+            @ "background-color:yellow"
+        }
+
     }
 
-    @ "test"
 }
-
-@ "yeeaaahhh"
