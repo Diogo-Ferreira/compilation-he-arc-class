@@ -7,6 +7,7 @@ reserved_words = (
     'if',
     'else',
     'is',
+    'not',
     'by',
     'keyframes',
     'animation',
@@ -29,8 +30,6 @@ literals = '();:${}@,.%"<>'
 
 def t_STRING(t):
     r'"(.*?)"'
-    # removes quotes from strings
-    #t.value = t.value.replace("\"", "")
     return t
 
 
@@ -45,7 +44,7 @@ def t_MUL_OP(t):
 
 
 def t_CMP_OP(t):
-    r'[<>]'
+    r'[<>]|is|not'
     return t
 
 

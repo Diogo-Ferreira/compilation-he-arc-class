@@ -82,23 +82,6 @@ def p_expression_op(p):
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 
-def p_expression_logic(p):
-    ''' expression : expression IS expression '''
-    p[0] = AST.IsEqualNode([p[1], p[3]])
-
-"""
-def p_expression_less_logic(p):
-    ''' expression : expression '<' expression '''
-    p[0] = AST.IsLessNode([p[1], p[3]])
-
-
-def p_expression_greater_logic(p):
-    ''' expression : expression '>' expression '''
-    p[0] = AST.IsGreaterNode([p[1], p[3]])
-
-"""
-
-
 def p_expression_num_or_var(p):
     '''expression : NUMBER
         | IDENTIFIER

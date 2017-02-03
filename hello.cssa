@@ -1,27 +1,4 @@
-@ "background-color:black"
 
-animation("example","#mydiv") {
-
-    @ "width:100px"
-    @ "height:100px"
-    @ "background-color:red"
-    @ "animation-duration:4s"
-
-
-    keyframes{
-        for 0 to 100 by 25 {
-
-            cpt: 0
-            cond: ix % 2
-
-            if cond is 0 {
-                cpt: 1
-            }
-
-            frame(ix){
-                value: 3*ix
-                @ "background-color: rgba($value,0,0,255)"
-            }
-        }
-    }
+if 2 not 3{
+    log "yeah"
 }

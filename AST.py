@@ -129,10 +129,6 @@ class ConditionNode(Node):
     type = 'condition'
 
 
-class IsEqualNode(Node):
-    type = 'Is'
-
-
 class KeyframesNode(Node):
     type = 'Keyframes'
 

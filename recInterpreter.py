@@ -12,7 +12,10 @@ operations = {
     '/': lambda x, y: x / y,
     '%': lambda x, y: int(x) % int(y),
     '<': lambda x, y: x < y,
-    '>': lambda x, y: x > y
+    '>': lambda x, y: x > y,
+    'is': lambda x, y: x == y,
+    'not': lambda x, y: x != y
+
 }
 
 vars = {}
@@ -133,11 +136,6 @@ def execute(self):
 def execute(self):
     if self.children[0].execute():
         self.children[1].execute()
-
-
-@addToClass(AST.IsEqualNode)
-def execute(self):
-    return self.children[0].execute() == self.children[1].execute()
 
 
 @addToClass(AST.WhileNode)
