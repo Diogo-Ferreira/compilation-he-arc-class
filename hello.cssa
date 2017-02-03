@@ -19,7 +19,7 @@ animation("example","div") {
             }
 
             frame(ix){
-                log cpt
+                @ "background: rgb($cpt,0,0)"
             }
         }
     }

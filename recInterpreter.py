@@ -2,6 +2,7 @@ import AST
 from AST import addToClass
 from functools import reduce
 
+from CssVarExtractor import extract
 from CssWriter import CssWriter
 
 operations = {
@@ -62,6 +63,7 @@ def execute(self):
     else:
         return self.tok.execute()
 
+
 @addToClass(AST.OpNode)
 def execute(self):
     args = [c.execute() for c in self.children]
@@ -86,7 +88,12 @@ def execute(self):
 def execute(self):
     last = css_context[-1]
 
-    css = self.children[0].tok
+    css = str(self.children[0].tok)
+
+    extracted_vars = extract(css, vars)
+
+    for var in extracted_vars:
+        css = css.replace("$%s" % var, str(vars[var]))
 
     if last[0] == "animation":
         name = last[1]
@@ -165,7 +172,6 @@ def execute(self):
 
 @addToClass(AST.FrameNode)
 def execute(self):
-
     value = int(self.children[0].children[1].execute())
     css_context.append(
         ("frame", value, css_context[-1][1])
