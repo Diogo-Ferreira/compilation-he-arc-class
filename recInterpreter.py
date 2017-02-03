@@ -11,6 +11,8 @@ operations = {
     '*': lambda x, y: x * y,
     '/': lambda x, y: x / y,
     '%': lambda x, y: int(x) % int(y),
+    '<': lambda x, y: x < y,
+    '>': lambda x, y: x > y
 }
 
 vars = {}
@@ -89,7 +91,7 @@ def execute(self):
 def execute(self):
     last = css_context[-1]
 
-    css = str(self.children[0].tok)
+    css = str(self.children[0].execute())
 
     extracted_vars = extract(css, vars)
 
@@ -138,16 +140,6 @@ def execute(self):
     return self.children[0].execute() == self.children[1].execute()
 
 
-@addToClass(AST.IsLessNode)
-def execute(self):
-    return self.children[0].execute() < self.children[1].execute()
-
-
-@addToClass(AST.IsGreaterNode)
-def execute(self):
-    return self.children[0].execute() > self.children[1].execute()
-
-
 @addToClass(AST.WhileNode)
 def execute(self):
     ix = self.children[0].children[1].execute()
@@ -176,8 +168,8 @@ def execute(self):
 
 @addToClass(AST.AnimationNode)
 def execute(self):
-    name = self.children[0].children[1].tok
-    selector = self.children[1].children[1].tok
+    name = self.children[0].children[1].execute()
+    selector = self.children[1].children[1].execute()
     css_context.append(
         ("animation", name, selector)
     )

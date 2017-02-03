@@ -1,24 +1,34 @@
-body {
-	background-color:black;
-}
 #mydiv {
-	animation-name: example;
-	width:100px;
-	height:100px;
-	background-color:red;
-	animation-duration:4s;
+  width: 200px;
+  height: 200px;
+  background-color: coral;
+  animation: square-to-circle 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate;
 }
-@keyframes example {
-	0% {
-		background-color: rgba(0,0,0,255);
-	}
-	25% {
-		background-color: rgba(75,0,0,255);
-	}
-	50% {
-		background-color: rgba(150,0,0,255);
-	}
-	75% {
-		background-color: rgba(225,0,0,255);
-	}
+ 
+@keyframes square-to-circle {
+  0%  {
+    border-radius:0 0 0 0;
+    background:coral;
+    transform:rotate(0deg);
+  }
+  25%  {
+    border-radius:50% 0 0 0;
+    background:darksalmon;
+    transform:rotate(45deg);
+  }
+  50%  {
+    border-radius:50% 50% 0 0;
+    background:indianred;
+    transform:rotate(90deg);
+  }
+  75%  { 
+    border-radius:50% 50% 50% 0;
+    background:lightcoral;
+    transform:rotate(135deg);
+  }
+  100% {  
+    border-radius:50%;
+    background:darksalmon;
+    transform:rotate(180deg);
+  }
 }

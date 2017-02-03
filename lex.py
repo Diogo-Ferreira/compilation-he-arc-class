@@ -17,6 +17,7 @@ tokens = (
      'NUMBER',
      'ADD_OP',
      'MUL_OP',
+     'CMP_OP',
      'FUNCTION',
      'IDENTIFIER',
      'STRING',
@@ -33,7 +34,6 @@ def t_STRING(t):
     return t
 
 
-
 def t_ADD_OP(t):
     r'[+-]'
     return t
@@ -41,6 +41,11 @@ def t_ADD_OP(t):
 
 def t_MUL_OP(t):
     r'[*/]'
+    return t
+
+
+def t_CMP_OP(t):
+    r'[<>]'
     return t
 
 
@@ -65,10 +70,11 @@ def t_IDENTIFIER(t):
         t.type = t.value.upper()
     return t
 
+
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
-    #return t
+    # return t
 
 
 t_ignore = ' \t'

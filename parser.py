@@ -77,7 +77,8 @@ def p_frame(p):
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
             | expression MUL_OP expression
-            | expression MOD expression'''
+            | expression MOD expression
+            | expression CMP_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 
@@ -85,7 +86,7 @@ def p_expression_logic(p):
     ''' expression : expression IS expression '''
     p[0] = AST.IsEqualNode([p[1], p[3]])
 
-
+"""
 def p_expression_less_logic(p):
     ''' expression : expression '<' expression '''
     p[0] = AST.IsLessNode([p[1], p[3]])
@@ -94,6 +95,8 @@ def p_expression_less_logic(p):
 def p_expression_greater_logic(p):
     ''' expression : expression '>' expression '''
     p[0] = AST.IsGreaterNode([p[1], p[3]])
+
+"""
 
 
 def p_expression_num_or_var(p):
@@ -153,7 +156,6 @@ if __name__ == "__main__":
 
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
-        graph = result.threadTree(graph)
         graph.write_pdf(name)
         print ("wrote ast to", name)
     else:

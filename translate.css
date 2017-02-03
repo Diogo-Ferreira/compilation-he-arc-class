@@ -1,3 +1,37 @@
 body {
 	
 }
+"#mydiv" {
+	animation-name: "morphing";
+	"width:200px";
+	"height:200px";
+	"background-color:coral";
+	"animation morphing 2s .5s infinite cubic-bezier(1,.015,.295,1.225) alternate";
+}
+@keyframes "morphing" {
+	0% {
+		"border-radius:50% 0 0 0";
+		"background:coral";
+		"transform:rotate(0deg)";
+	}
+	25% {
+		"border-radius:50% 0 0 0";
+		"background:coral";
+		"transform:rotate(45deg)";
+	}
+	50% {
+		"border-radius:50% 0 0 0";
+		"background:coral";
+		"transform:rotate(90deg)";
+	}
+	75% {
+		"border-radius:50% 0 0 0";
+		"background:coral";
+		"transform:rotate(135deg)";
+	}
+	100% {
+		"border-radius:50% 0 0 0";
+		"background:coral";
+		"transform:rotate(180deg)";
+	}
+}
