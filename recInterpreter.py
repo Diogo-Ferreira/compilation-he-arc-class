@@ -15,7 +15,6 @@ operations = {
 
 vars = {}
 
-
 """
 css_output = {
     "selectors": {
@@ -97,7 +96,7 @@ def execute(self):
     for var in extracted_vars:
         clean_var = vars[var]
 
-        if isinstance(clean_var,float):
+        if isinstance(clean_var, float):
             clean_var = int(clean_var)
 
         css = css.replace("$%s" % var, str(clean_var))
@@ -139,10 +138,20 @@ def execute(self):
     return self.children[0].execute() == self.children[1].execute()
 
 
+@addToClass(AST.IsLessNode)
+def execute(self):
+    return self.children[0].execute() < self.children[1].execute()
+
+
+@addToClass(AST.IsGreaterNode)
+def execute(self):
+    return self.children[0].execute() > self.children[1].execute()
+
+
 @addToClass(AST.WhileNode)
 def execute(self):
-    ix = self.children[0].children[1].tok
-    end = self.children[1].children[1].tok
+    ix = self.children[0].children[1].execute()
+    end = self.children[1].children[1].execute()
     increment = self.children[2].children[1].tok
 
     while ix < end:

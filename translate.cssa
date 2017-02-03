@@ -2,7 +2,7 @@
 @ "background-color:black"
 
 animation("translate","#mydiv") {
-
+    @ "position: absolute"
     @ "width:100px"
     @ "height:100px"
     @ "animation-duration:10s"
@@ -26,15 +26,23 @@ animation("translate","#mydiv") {
                 blueFactor: 255
             }
 
+            margin: ix*10
+
             frame(ix){
-                @ "left: $ixpx"
+                @ "left: $marginpx"
                 @ "background-color: rgb($redFactor, 0, $blueFactor)"
             }
+        }
+
+        frame(100) {
+            @ "left: 1000px"
         }
     }
 }
 
 animation("translate", ".myclass") {
+    @ "position: absolute"
+    @ "top: 150px"
     @ "width:200px"
     @ "height:200px"
     @ "animation: translate 10s ease-in-out 2s infinite alternate"

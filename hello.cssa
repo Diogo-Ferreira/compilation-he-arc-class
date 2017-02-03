@@ -1,33 +1,21 @@
+length:100
 
+for 0 to length by 1 {
 
-@ "background-color:black"
+    log ix
+    cond: ix % 2
 
-animation("example","#mydiv") {
+    if cond is 0 {
 
-    @ "width:100px"
-    @ "height:100px"
-    @ "background-color:red"
-    @ "animation-duration:4s"
-
-
-    keyframes{
-        for 0 to 100 by 25 {
-
-            cpt: 0
-            cond: ix % 2
-
-            if cond is 0 {
-                cpt: 1
-            }
-
-            frame(ix){
-                value: 3*ix
-                @ "background-color: rgba($value,0,0,255)"
-            }
-        }
+        log "le nombre courant est paire !\n"
     }
+
+    if ix > 10 {
+        log "le nombre est plus grand que 10 !"
+    }
+
+    if ix > 100 {
+        log "le nombre est plus grand que 100 !"
+    }
+
 }
-
-
-
-

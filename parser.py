@@ -3,6 +3,7 @@ import uuid
 import ply.yacc as yacc
 
 from lex import tokens
+
 import AST
 
 vars = {}
@@ -40,17 +41,17 @@ def p_condition(p):
 
 
 def p_structure(p):
-    ''' structure : FOR NUMBER TO NUMBER BY NUMBER '{' programme '}' '''
+    ''' structure : FOR expression TO expression BY expression '{' programme '}' '''
     p[0] = AST.WhileNode([
-        AST.AssignNode([AST.TokenNode("a1"), AST.TokenNode(p[2])]),
-        AST.AssignNode([AST.TokenNode("a2"), AST.TokenNode(p[4])]),
-        AST.AssignNode([AST.TokenNode("a3"), AST.TokenNode(p[6])]),
+        AST.AssignNode([AST.TokenNode("a1"), p[2]]),
+        AST.AssignNode([AST.TokenNode("a2"), p[4]]),
+        AST.AssignNode([AST.TokenNode("a3"), p[6]]),
         p[8]
     ])
 
 
 def p_css(p):
-    '''css : '@' STRING'''
+    '''css : '@' STRING '''
     p[0] = AST.CssNode(AST.TokenNode(p[2]))
 
 
@@ -85,6 +86,16 @@ def p_expression_logic(p):
     p[0] = AST.IsEqualNode([p[1], p[3]])
 
 
+def p_expression_less_logic(p):
+    ''' expression : expression '<' expression '''
+    p[0] = AST.IsLessNode([p[1], p[3]])
+
+
+def p_expression_greater_logic(p):
+    ''' expression : expression '>' expression '''
+    p[0] = AST.IsGreaterNode([p[1], p[3]])
+
+
 def p_expression_num_or_var(p):
     '''expression : NUMBER
         | IDENTIFIER
@@ -92,17 +103,9 @@ def p_expression_num_or_var(p):
     p[0] = AST.TokenNode(p[1])
 
 
-
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
-
-
-"""
-def p_function(p):
-    '''expression : IDENTIFIER '(' ')' '{' programme '}' '''
-    p[0] = AST.FuncNode([p[1], p[5]])
-"""
 
 
 def p_minus(p):
@@ -150,6 +153,7 @@ if __name__ == "__main__":
 
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
+        graph = result.threadTree(graph)
         graph.write_pdf(name)
         print ("wrote ast to", name)
     else:

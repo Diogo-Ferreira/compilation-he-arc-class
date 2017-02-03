@@ -23,13 +23,13 @@ tokens = (
      'MOD'
  ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '();:${}@,.%"'
+literals = '();:${}@,.%"<>'
 
 
 def t_STRING(t):
     r'"(.*?)"'
     # removes quotes from strings
-    t.value = t.value.replace("\"", "")
+    #t.value = t.value.replace("\"", "")
     return t
 
 
@@ -64,7 +64,6 @@ def t_IDENTIFIER(t):
     if t.value in reserved_words:
         t.type = t.value.upper()
     return t
-
 
 def t_newline(t):
     r'\n+'

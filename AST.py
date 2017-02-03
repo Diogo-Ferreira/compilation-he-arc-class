@@ -125,13 +125,20 @@ class CssNode(Node):
     type = 'CSS'
 
 
-
 class ConditionNode(Node):
     type = 'condition'
 
 
 class IsEqualNode(Node):
     type = 'Is'
+
+
+class IsLessNode(Node):
+    type = '<'
+
+
+class IsGreaterNode(Node):
+    type = '>'
 
 
 class KeyframesNode(Node):
